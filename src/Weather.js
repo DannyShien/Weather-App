@@ -28,7 +28,7 @@ class Weather extends Component {
 
     _onSubmit(event) {
         const search = event.target.value;
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=Atlanta&type=accurate&APPID=${owKey}`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=Atlanta&type=accurate&APPID=${Key.owKey}`)
             .then(r => r.json())
             .then(obj => {
                 let newInfo = {
