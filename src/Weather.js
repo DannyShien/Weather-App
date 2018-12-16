@@ -3,6 +3,7 @@ import Search from './Search';
 import Info from './Info';
 import Key from './config';
 
+
 class Weather extends Component {
     constructor(props) {
         super(props);
@@ -11,9 +12,10 @@ class Weather extends Component {
             weather: '',
             main: '', // weather group parameters 
             description: '', // descriptions of parameters
-            temperature: '', // weather temp
+            temperature: '', 
             humidity: '',
-            wind: '' // speed
+            wind: '', // speed
+            stats: []
         }
     }
     render() {
@@ -24,12 +26,15 @@ class Weather extends Component {
                     <Search
                     onSubmit = {this._onSubmit}
                     />  
+
+                
                     <Info
                     name = {this.state.name}
                     weather = {`${this.state.main}, ${this.state.description}`}
-                    temperature = {`${this.state.temperature}°F`}
-                    humidity = {`${this.state.humidity}%`}
-                    wind =  {`${this.state.wind}mph`}
+                    temperature = {this.state.temperature}
+                    humidity = {this.state.humidity}
+                    wind = {this.state.wind}
+                    stats = {this.state.stats}
                     />
                 </div>
             </div>
@@ -49,9 +54,11 @@ class Weather extends Component {
                     // temperature: (((obj.main.temp -273.15) * 9) / 5 + 32).toFixed(1),
                     humidity: obj.main.humidity,
                     wind: obj.wind.speed
-                }
+                };
+                console.log(newInfo);
             })
             .then(newInfo => {
+                console.log(newInfo);
                 this.setState = ({
                     name: newInfo.name, 
                     main: newInfo.main,
