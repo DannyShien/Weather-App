@@ -3,11 +3,13 @@ import React from 'react';
 const Info = (props) => {
     return (
         <div className = 'weatherInfo'>
-            Name <br />
-            Weather: Drizzle, light intensity Drizzle <br />
-            Temperature: 50° <br />
-            Humidity: 81% <br />
-            Wind: 10 MPH
+            <h2>{props.name}</h2>
+            <ul className = 'infoList'>
+                <li>Weather: {props.main} {props.description}</li>
+                <li>Temperature: {props.temperature}</li>
+                <li>Humidity: {props.humidity}</li>
+                <li>Wind: {props.wind}</li>
+            </ul>
         </div>
     )
 

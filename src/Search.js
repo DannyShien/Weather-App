@@ -2,7 +2,7 @@ import React from 'react';
 
 const Search = (props) => {
     return (
-        <form >
+        <form onSubmit={props.onSubmit}>
             <input
                 text = 'text'
                 placeholder = 'Search City'
