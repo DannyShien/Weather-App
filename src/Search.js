@@ -10,6 +10,7 @@ const Search = (props) => {
             <input
                 text = 'text' 
                 placeholder = 'Search City'
+                // onChange, accepts the new value of what is being changed for input
                 onChange = {(e) => {
                     // console.log(e.target.value);
                     props.handleChange(e.target.value);
