@@ -1,17 +1,17 @@
 import React from 'react';
 
 const Info = (props) => {
-    // console.log(props);
+    console.log('This is being passed', props);
     return (
         <div className = 'weatherInfo'>
-            {props.stats.map(stats => {
+            {props.stats.map(object => {
                 return  (
                     <ul className = 'infoList'>
                         <h2>{props.name}</h2>
-                        Weather: {`${this.state.main}, ${this.state.description}`}
-                        Temperature: {`${this.state.temperature}°F`}
-                        Humidity: {`${this.state.humidity}%`}
-                        Wind:  {`${this.state.wind}mph`}
+                        {/* Weather: {`${props.state.main}, ${props.state.description}`} */}
+                        Temperature: {`${props.temperature}°F`}
+                        Humidity: {`${props.humidity}%`}
+                        Wind:  {`${props.wind}mph`}
                     </ul>
                 )
             })}
