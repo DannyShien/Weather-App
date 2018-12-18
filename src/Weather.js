@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from './Search';
 import Info from './Info';
+import './Weather.css';
 // import Key from './config';
 
 
@@ -20,9 +21,9 @@ class Weather extends Component {
     }
     render() {
         return (
-            <div className="Weather">   
+            <div className="weather-container center">   
                 <h1>React Weather API</h1>
-                <div className = 'searchBar'>
+                <div className = 'search-bar'>
                     <Search
                     onSubmit = {this._onSubmit}
                     newInput = {this.state.name}
@@ -46,14 +47,19 @@ class Weather extends Component {
                 return r.json()
             })
             .then(obj => {
-                // console.log(obj)
+                // console.log(obj.weather[0].id)
+                let temp = ((obj.main.temp -273.15) * 9/ 5 + 32).toFixed(1);
+                let weather_condition =  obj.weather.map((bob) => {
+                    return bob.main});   
+                let weather_description = obj.weather.map((bob) => {
+                    return bob.description});
+
                 this.setState ({
                     weather_data: obj,
                     name: obj.name,
-                    main: obj.weather.main,
-                    description: obj.weather.description,
-                    temperature: ((obj.main.temp -273.15) * 9/ 5 + 32).toFixed(1),
-                    // temperature: (((obj.main.temp -273.15) * 9) / 5 + 32).toFixed(1),
+                    main: weather_condition,
+                    description: weather_description,
+                    temperature: temp,
                     humidity: obj.main.humidity,
                     wind: obj.wind.speed
                 })
