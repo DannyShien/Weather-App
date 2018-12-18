@@ -5,9 +5,9 @@ import {
     // Link
 }   from 'react-router-dom';
 import Navbar from './Navbar';// import './App.css';
-import Landing from './Landing';
-import About from './About';
 import Weather from './Weather';
+import About from './About';
+import Home from './Home';
 
 
 class App extends Component {
@@ -17,10 +17,10 @@ class App extends Component {
                 <Router>
                 <div>
                     <Navbar />
-                    <Route path = '/' exact component = {Landing} />
+                    <Route path = '/' exact component = {Home} />
                     <Route path = '/about' component = {About} />
                     <Route path = '/weather' component = {Weather} /> 
-                    <h1>Hello landing page</h1>
+                    
                     
                 </div>
                 </Router>

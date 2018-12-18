@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Search = (props) => { console.log(props)
+const Search = (props) => { 
     return (
         <form 
             className = 'form center'
