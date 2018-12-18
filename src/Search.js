@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Search = (props) => {
+
+const Search = (props) => { console.log(props)
     return (
         <form 
             className = 'form center'
@@ -24,7 +25,7 @@ const Search = (props) => {
             <button className = 'btn' type = 'submit' value = 'search'>
                 Submit</button> 
         </form>  
-            );
+    );
 }
 
 export default Search;
