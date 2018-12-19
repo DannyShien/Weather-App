@@ -46,11 +46,18 @@ html, body {
     height: 550px;
     width: 100%;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
     color: gray;
     background-color: black;
 }
-
+p {
+    color: white;
+    font-size: 22px;
+    width: 500px;
+    text-align: center;
+}
 .weather {
     background-color: lightskyblue;
     height: 550px;

@@ -18,7 +18,8 @@ class Weather extends Component {
             description: '', // descriptions of parameters
             temperature: '', 
             humidity: '',
-            wind: '' // speed
+            wind: '', // speed
+            forecast_date: ''
         }
     }
     render() {
@@ -43,7 +44,7 @@ class Weather extends Component {
         const searchCity = this.state.name
         event.preventDefault();
         // console.log(searchCity);
-        console.log('Input Submitted')
+        console.log('Input Submitted');
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=dee07fae47d614b4f9cb0a8cd0a2cfeb`)
             .then(r => {
                 return r.json()
@@ -56,7 +57,6 @@ class Weather extends Component {
                     // console.log(weather_condition)
                 let weather_description = obj.weather.map((bob) => {
                     return bob.description});
-
                 this.setState ({
                     weather_data: obj,
                     name: obj.name,
@@ -64,11 +64,31 @@ class Weather extends Component {
                     description: weather_description,
                     temperature: temp,
                     humidity: obj.main.humidity,
-                    wind: obj.wind.speed
+                    wind: obj.wind.speed,
                 })
                 console.log('Weather Info:', obj);
-            });
-
+                fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=7&APPID=0f120aa36b999f92a1be873d99468369`)
+                    // .catch(err =>{
+                    //     console.log(err);
+                    // })
+                    .then(r => { console.log(r)
+                        return r.json()
+                    })
+                    .then(obj => {
+                        // let day = obj.list.map((forecast) => {
+                        //     return forecast.dt_txt});
+                        //     console.log(day)
+                        let day = obj.list.map((forecast) => {
+                            return forecast.dt});
+                            console.log(day)
+                        let timestamp = new Date(day[0] * 1000);
+                        console.log(timestamp)
+                        this.setState ({
+                            forecast_date: timestamp 
+                        })
+                    })
+            })
+                
     }
 
     // Setting the state for 'name' to be used in the input. 
@@ -90,6 +110,7 @@ class Weather extends Component {
                     temperature = {this.state.temperature}
                     humidity = {this.state.humidity}
                     wind = {this.state.wind}
+                    forecast = {`${this.state.forecast_date}`}
                 />
             )
         } else {
