@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 class Home extends Component {
     render() {
         return (
-            <div>
-                <h1>Hello landing page</h1>
+            <div className = 'home'>
+                <h1>Practicing with React!</h1>
             </div>
         );
     }

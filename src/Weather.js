@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import Search from './Search';
 import CurrentWeather from './CurrentWeather';
-import './Weather.css';
+// import './Weather.css';
 // import Key from './config';
 
 
@@ -23,7 +23,7 @@ class Weather extends Component {
     }
     render() {
         return (
-            <div className="weather-container center">   
+            <div className='weather'>   
                 <h1>React Weather API</h1>
                 <div className = 'search-bar'>
                     <h4>Check your city's weather.</h4>
@@ -32,7 +32,6 @@ class Weather extends Component {
                     newInput = {this.state.name}
                     handleChange = {this._citySearch}
                     />  
-
                     {this._showWeatherData()}
                 </div>
             </div>

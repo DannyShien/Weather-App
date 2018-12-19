@@ -1,8 +1,152 @@
-.App {
-  text-align: center;
+html {
+    box-sizing: border-box; 
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+html, body {
+    margin: 0; 
+    padding: 0; 
+    width: 100%; 
+    height: 100%; 
 }
 
-.App-logo {
+.App {
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.navbar {
+    height: 70px;
+    width: 800px;
+    display: flex;
+    justify-content: center; 
+    font-size: 36px;
+    font-weight: bold;
+}
+.links {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    text-decoration: none;
+    align-items: center;
+
+}
+.home {
+    height: 550px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: gray;
+    background-color: black;
+}
+.about {
+    height: 550px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: gray;
+    background-color: black;
+}
+
+.weather {
+    background-color: lightskyblue;
+    height: 550px;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: navy;
+}
+h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px white;
+}
+h4 {
+    text-align: center;
+    margin: 15px;
+    font-size: 21px;
+    color: white;
+}
+.form {
+    height: 30px;
+    width: 355px;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.input {
+    width: 200px;
+    height: 30px;
+    border: 2px solid darkgray;
+    border-style: groove;
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 3px;
+    border-radius: 5px;
+    align-items: center;
+}
+.btn { 
+    border: 2px solid darkgray;
+    border-style: groove;
+    height: 23px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.weather-info {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    outline: 1px solid black;
+    margin-top: 30px;
+    text-align: left;
+     color: navy;
+}
+h2 {
+    margin: 15px 0;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+li {
+    list-style-type: none;
+    font-size: 22px;
+    text-align: center;
+    margin: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .App {
+  text-align: center;
+}  */
+
+/* .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
 }
@@ -29,4 +173,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+}  */

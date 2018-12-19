@@ -4,7 +4,8 @@ import {
     Route,
     // Link
 }   from 'react-router-dom';
-import Navbar from './Navbar';// import './App.css';
+import './App.css';
+import Navbar from './Navbar';
 import Weather from './Weather';
 import About from './About';
 import Home from './Home';
@@ -13,18 +14,14 @@ import Home from './Home';
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                <Router>
-                <div>
+            <Router>
+                <div className="App">
                     <Navbar />
                     <Route path = '/' exact component = {Home} />
                     <Route path = '/about' component = {About} />
                     <Route path = '/weather' component = {Weather} /> 
-                    
-                    
                 </div>
-                </Router>
-            </div>
+            </Router>
         );
     }
 }
