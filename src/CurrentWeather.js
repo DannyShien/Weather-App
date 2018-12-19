@@ -9,9 +9,6 @@ const CurrentWeather = (props) => {
             <li><strong>Weather Condition:</strong> {`${props.weather_condition}`}</li>
             <li><strong>Humidity:</strong> {`${props.humidity}%`}</li>
             <li><strong>Wind:</strong>  {`${props.wind} mph`}</li>
-
-
-            <li><strong>Forecast:</strong> {`${props.forecast}`}</li>
         </div>
     )
 

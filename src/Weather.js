@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import Search from './Search';
 import CurrentWeather from './CurrentWeather';
+import Forecast from './Forecast';
 // import './Weather.css';
 // import Key from './config';
 
@@ -19,7 +20,12 @@ class Weather extends Component {
             temperature: '', 
             humidity: '',
             wind: '', // speed
-            forecast_date: ''
+            forecast_timestamp: '',
+            forecast_mainTemp: '',
+            forecast_minTemp: '', 
+            forecast_maxTemp: '', 
+            forecast_humidity: '', 
+            forecast_wind:''
         }
     }
     render() {
@@ -32,8 +38,16 @@ class Weather extends Component {
                     onSubmit = {this._onSubmit}
                     newInput = {this.state.name}
                     handleChange = {this._citySearch}
-                    />  
+                    />
+
                     {this._showWeatherData()}
+
+                    <Forecast 
+                        timestamp = {`${this.state.forecast_timestamp}`}
+                        mainTemp = {`${this.state.forecast_mainTemp}`}
+                        minTemp = {`${this.state.forecast_minTemp}`}
+                        maxTemp = {`${this.state.forecast_maxTemp}`}
+                    />
                 </div>
             </div>
         );
@@ -51,7 +65,7 @@ class Weather extends Component {
             })
             .then(obj => {
                 // console.log(obj.weather[0].id)
-                let temp = ((obj.main.temp -273.15) * 9/ 5 + 32).toFixed(1);
+                let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
                 let weather_condition =  obj.weather.map((bob) => {
                     return bob.main});   
                     // console.log(weather_condition)
@@ -62,12 +76,12 @@ class Weather extends Component {
                     name: obj.name,
                     main: weather_condition,
                     description: weather_description,
-                    temperature: temp,
+                    temperature: current_temp,
                     humidity: obj.main.humidity,
                     wind: obj.wind.speed,
                 })
                 console.log('Weather Info:', obj);
-                fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=7&APPID=0f120aa36b999f92a1be873d99468369`)
+                fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=16&APPID=0f120aa36b999f92a1be873d99468369`)
                     // .catch(err =>{
                     //     console.log(err);
                     // })
@@ -75,17 +89,38 @@ class Weather extends Component {
                         return r.json()
                     })
                     .then(obj => {
-                        // let day = obj.list.map((forecast) => {
-                        //     return forecast.dt_txt});
-                        //     console.log(day)
                         let day = obj.list.map((forecast) => {
-                            return forecast.dt});
-                            console.log(day)
-                        let timestamp = new Date(day[0] * 1000);
-                        console.log(timestamp)
+                            return forecast.dt_txt});
+                        //     console.log(day)
+
+                        // let day = obj.list.map((date) => {
+                        //     let singleTimestamp = new Date(date.dt * 1000)
+                        //     // let timestamp = new Date(day[0] * 1000);
+                        //     return singleTimestamp});
+                            // console.log(day)
+
+                        let main_temp = obj.list.map((jeff) => {
+                            let temperature = ((jeff.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
+                            return temperature});
+                            console.log('hey', main_temp);
+
+                        let min_temp = obj.list.map((harry) => {
+                            let temp = ((harry.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
+                            return temp});
+
+                        let max_temp = obj.list.map((harry) => {
+                            let temp = ((harry.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
+                            return temp});    
+
                         this.setState ({
-                            forecast_date: timestamp 
+                            forecast_timestamp: day,
+                            forecast_mainTemp: main_temp,
+                            forecast_minTemp: min_temp, 
+                            forecast_maxTemp: max_temp, 
+                            // forecast_humidity: '', 
+                            // forecast_wind:'' 
                         })
+                        // console.log(timestamp);
                     })
             })
                 
@@ -110,7 +145,6 @@ class Weather extends Component {
                     temperature = {this.state.temperature}
                     humidity = {this.state.humidity}
                     wind = {this.state.wind}
-                    forecast = {`${this.state.forecast_date}`}
                 />
             )
         } else {
