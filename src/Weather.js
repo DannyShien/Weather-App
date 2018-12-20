@@ -12,7 +12,8 @@ class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            weather_data: null,
+            current_weather: null,
+            forecast_weather: null,
             name: '', // city name
             weather: '',
             main: '', // weather group parameters 
@@ -20,6 +21,7 @@ class Weather extends Component {
             temperature: '', 
             humidity: '',
             wind: '', // speed
+            forecast_display: [],
             forecast_timestamp: '',
             forecast_mainTemp: '',
             forecast_minTemp: '', 
@@ -40,14 +42,10 @@ class Weather extends Component {
                     handleChange = {this._citySearch}
                     />
 
-                    {this._showWeatherData()}
+                    {this._showCurrentWeather()}
 
-                    <Forecast 
-                        timestamp = {`${this.state.forecast_timestamp}`}
-                        mainTemp = {`${this.state.forecast_mainTemp}`}
-                        minTemp = {`${this.state.forecast_minTemp}`}
-                        maxTemp = {`${this.state.forecast_maxTemp}`}
-                    />
+                    {this._showForecast()}
+                    
                 </div>
             </div>
         );
@@ -72,7 +70,7 @@ class Weather extends Component {
                 let weather_description = obj.weather.map((bob) => {
                     return bob.description});
                 this.setState ({
-                    weather_data: obj,
+                    current_weather: obj,
                     name: obj.name,
                     main: weather_condition,
                     description: weather_description,
@@ -80,17 +78,18 @@ class Weather extends Component {
                     humidity: obj.main.humidity,
                     wind: obj.wind.speed,
                 })
-                console.log('Weather Info:', obj);
+                // console.log('Weather Info:', obj);
                 fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=16&APPID=0f120aa36b999f92a1be873d99468369`)
                     // .catch(err =>{
                     //     console.log(err);
                     // })
-                    .then(r => { console.log(r)
+                    .then(r => { 
+                        // console.log(r)
                         return r.json()
                     })
                     .then(obj => {
-                        let day = obj.list.map((forecast) => {
-                            return forecast.dt_txt});
+                        // let day = obj.list.map((forecast) => {
+                        //     return forecast.dt_txt});
                         //     console.log(day)
 
                         // let day = obj.list.map((date) => {
@@ -99,28 +98,29 @@ class Weather extends Component {
                         //     return singleTimestamp});
                             // console.log(day)
 
-                        let main_temp = obj.list.map((jeff) => {
-                            let temperature = ((jeff.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
-                            return temperature});
-                            console.log('hey', main_temp);
+                        // let main_temp = obj.list.map((jeff) => {
+                        //     let temperature = ((jeff.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
+                        //     return temperature});
+                            // console.log('hey', main_temp);
 
-                        let min_temp = obj.list.map((harry) => {
-                            let temp = ((harry.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
-                            return temp});
+                        // let min_temp = obj.list.map((harry) => {
+                        //     let temp = ((harry.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
+                        //     return temp});
 
-                        let max_temp = obj.list.map((harry) => {
-                            let temp = ((harry.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
-                            return temp});    
+                        // let max_temp = obj.list.map((harry) => {
+                        //     let temp = ((harry.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
+                        //     return temp});    
 
                         this.setState ({
-                            forecast_timestamp: day,
-                            forecast_mainTemp: main_temp,
-                            forecast_minTemp: min_temp, 
-                            forecast_maxTemp: max_temp, 
-                            // forecast_humidity: '', 
-                            // forecast_wind:'' 
+                            forecast_display: [...this.state.forecast_display, {
+                            forecast_weather: obj.list,
+                            // forecast_timestamp: day,
+                            // forecast_mainTemp: main_temp,
+                            // forecast_minTemp: min_temp, 
+                            // forecast_maxTemp: max_temp, 
+                            }]
                         })
-                        // console.log(timestamp);
+                        // console.log('wow', this.state.forecast_display[0].forecast_mainTemp[0]);
                     })
             })
                 
@@ -136,8 +136,8 @@ class Weather extends Component {
     }
 
     // checks to see if there is any data, if there is data, render the data.
-    _showWeatherData = () => {
-        if(this.state.weather_data) {
+    _showCurrentWeather = () => {
+        if(this.state.current_weather) {
             return (
                 <CurrentWeather
                     name = {this.state.name}
@@ -145,9 +145,24 @@ class Weather extends Component {
                     temperature = {this.state.temperature}
                     humidity = {this.state.humidity}
                     wind = {this.state.wind}
+                /> 
+            )
+        } else {
+            return (null);
+        }
+    }
+
+    _showForecast = () => { 
+        if (!this.state.forecast_weather) {
+            return (
+                <Forecast 
+                    threeHourForecast = {this.state.forecast_display}
+                    // timestamp = {`${this.state.forecast_timestamp}`}
+                    // mainTemp = {`${this.state.forecast_mainTemp}`}
                 />
             )
         } else {
+            console.log('No data grabbed.')
             return (null);
         }
     }
