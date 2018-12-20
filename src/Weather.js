@@ -32,20 +32,23 @@ class Weather extends Component {
     }
     render() {
         return (
-            <div className='weather'>   
-                <h1>React Weather API</h1>
-                <div className = 'search-bar'>
-                    <h4>Check your city's weather.</h4>
-                    <Search
-                    onSubmit = {this._onSubmit}
-                    newInput = {this.state.name}
-                    handleChange = {this._citySearch}
-                    />
+            <div class-Name = 'weather-container'>
+                <div className='weather'>   
+                    <h1>React Weather API</h1>
+                    <div className = 'weather-display'>
+                        <h4>Check your city's weather.</h4>
+                        <Search
+                        onSubmit = {this._onSubmit}
+                        newInput = {this.state.name}
+                        handleChange = {this._citySearch}
+                        />
 
-                    {this._showCurrentWeather()}
-
+                        {this._showCurrentWeather()}
+                    </div>
+                </div>
+                <div className = 'forecast-display'>
+                    <h2 classname = 'forecast-title'>3 hr Interval Forecast</h2>
                     {this._showForecast()}
-                    
                 </div>
             </div>
         );

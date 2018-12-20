@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     return (
-        <div className = 'navbar'>
+        <div className = 'navbar sticky'>
             <Link to = '/' className = 'links'>Home</Link>
             <Link to = '/about' className = 'links'>About</Link>
             <Link to = '/weather' className = 'links'>Weather</Link>

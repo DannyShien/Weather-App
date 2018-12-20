@@ -18,30 +18,36 @@ const convertDate = (day) => {
 
 
 const Forecast = (props) => {
+
     const showForecast = props.threeHourForecast.map((natalie) => { 
 
         const finalDisplayForecast = natalie.forecast_weather.map((tran)=> {
-
-            let forecast_day = convertDate((tran.dt_txt));
-            let forecast_temp = ((tran.main.temp - 273.15) * 9/5 +32).toFixed(1);
-            let forecast_tempMin = ((tran.main.temp_min - 273.15) * 9/5 +32).toFixed(1);
-            let forecast_tempMax = ((tran.main.temp_max - 273.15) * 9/5 +32).toFixed(1);
-            return ( 
-                <div className = 'forecast'>
-                    <div>{forecast_day}</div>
-                    <div>{`${forecast_temp}° F`}</div>
-                    <div>{`L/${forecast_tempMin}°`}</div>
-                    <div>{`H/${forecast_tempMax}°`}</div>
-                </div>   
-            )       
+            let i = 0;
+            if([i] <= (i === 3)) {
+                console.log([i]);
+                let forecast_day = convertDate((tran.dt_txt));
+                let forecast_temp = ((tran.main.temp - 273.15) * 9/5 +32).toFixed(1);
+                let forecast_tempMin = ((tran.main.temp_min - 273.15) * 9/5 +32).toFixed(1);
+                let forecast_tempMax = ((tran.main.temp_max - 273.15) * 9/5 +32).toFixed(1);
+                return ( 
+                    <div className = 'forecast'>
+                        <div><strong>{forecast_day}</strong></div>
+                        <div>{tran.dt_txt}</div>
+                        <div>{`${forecast_temp}° F`}</div>
+                        <div>{`L/${forecast_tempMin}°`}</div>
+                        <div>{`H/${forecast_tempMax}°`}</div>
+                    </div>   
+                )       
+            } else {
+                return 
+            }
         });
         return finalDisplayForecast
     })
     return (
-        <ul>
-            <h2>3 hr Interval Forecast</h2>
+        <div className = 'pos'>
             {showForecast}
-        </ul>
+        </div>
     )
 
 }

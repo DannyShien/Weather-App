@@ -4,7 +4,7 @@ import React from 'react';
 const Search = (props) => { 
     return (
         <form 
-            className = 'form center'
+            className = 'search center'
             onSubmit={(event) => {
             // event.preventDefault();
             props.onSubmit(event)
