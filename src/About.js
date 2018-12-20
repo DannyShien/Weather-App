@@ -7,10 +7,14 @@ class About extends Component {
             <div className = 'about'>
                 <h1>About</h1>
                 <p>
-                    This is a project about getting a better understanding of how to use React.
-                    Simple, yet allows me to grasp and practice the concepts we learned in class.
-                    I struggled more with creating the routes and ended up getting lost in my code, 
-                    more than a few times. 
+                    This project is about getting a better understanding of how to use React.
+                    Simple, yet allows me to grasp and practice the concepts we learned. <br />
+                    <br />
+                    # Challenges: <br />
+                        - Creating the routes and ended up getting lost in my code, 
+                            more than a few times. <br />
+                        - Chaining down the  with APIs to get specific information. <br />
+
                 </p>
 
             </div>
