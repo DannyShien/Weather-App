@@ -9,13 +9,13 @@ import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
 // import './Weather.css';
 
-// Establishing a class component called Wetaher. 
+// Establishing a class component called Weather. 
 class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
             current_weather: null,
-            name: '', 
+            city: '', 
             weather: '',
             main: '', 
             description: '', 
@@ -34,14 +34,7 @@ class Weather extends Component {
         }
     }
 
-    // Setting the state for 'name' to be used in the input. 
-    _citySearch = (input) => {
-        console.log(input)
-        this.setState({
-            name: input
-        });
-
-    }
+   
 
     render() {
         return (
@@ -51,25 +44,33 @@ class Weather extends Component {
                     <div className = 'weather-display'>
                         <h4>What's the weather today?</h4>
                         <Search
-                        onSubmit = {this._onSubmit}
-                        newInput = {this.state.name}
-                        handleChange = {this._citySearch}
+                            onSubmit = {this._onSubmit}
+                            newInput = {this.state.city}
+                            handleChange = {this.citySearch}
                         />
 
-                        {this._showCurrentWeather()}
+                        {this.showCurrentWeather()}
                     </div>
                 </div>
                 <div className = 'forecast-display'>
                     <h2 className = 'forecast-title'>3 hr Interval Forecast</h2>
-                    {this._showForecast()}
+                    {/* {this._showForecast()} */}
                 </div>
             </div>
         );
     }
 
+    // Setting the state for 'city' to be used in the input. 
+    citySearch = (input) => {
+        console.log(input)
+        this.setState({
+            city: input
+        });
+    }
+
     // When input is submitted, name of city is fetched from API to return weather info. 
     _onSubmit = (event) => {
-        const searchCity = this.state.name
+        const searchCity = this.state.city
         event.preventDefault();
         // console.log(searchCity);
         console.log('Input Submitted');
@@ -77,79 +78,91 @@ class Weather extends Component {
             .then(r => {
                 return r.json()
             })
-            .then(obj => {
-                // console.log(obj.weather[0].id)
-                let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
-                let weather_condition =  obj.weather.map((bob) => {
-                    return bob.main});   
-                    // console.log(weather_condition)
-                let weather_description = obj.weather.map((bob) => {
-                    return bob.description});
-                this.setState ({
-                    current_weather: obj,
-                    name: obj.name,
-                    main: weather_condition,
-                    description: weather_description,
-                    temperature: current_temp,
-                    humidity: obj.main.humidity,
-                    wind: obj.wind.speed,
-                })
-                // console.log('Weather Info:', obj);
-                fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=16&APPID=0f120aa36b999f92a1be873d99468369`)
-                    // .catch(err =>{
-                    //     console.log(err);
-                    // })
-                    .then(r => { 
-                        // console.log(r)
-                        return r.json()
-                    })
-                    .then(obj => {
-                        // let day = obj.list.map((forecast) => {
-                        //     return forecast.dt_txt});
-                        //     console.log(day)
+            .then(this.getTheWeather)
+            // console.log('Weather Info:', obj);
+                // fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=16&APPID=0f120aa36b999f92a1be873d99468369`)
+                //     // .catch(err =>{
+                //     //     console.log(err);
+                //     // })
+                //     .then(r => { 
+                //         // console.log(r)
+                //         return r.json()
+                //     })
+                //     .then(obj => {
+                //         // let day = obj.list.map((forecast) => {
+                //         //     return forecast.dt_txt});
+                //         //     console.log(day)
 
-                        // let day = obj.list.map((date) => {
-                        //     let singleTimestamp = new Date(date.dt * 1000)
-                        //     // let timestamp = new Date(day[0] * 1000);
-                        //     return singleTimestamp});
-                            // console.log(day)
+                //         // let day = obj.list.map((date) => {
+                //         //     let singleTimestamp = new Date(date.dt * 1000)
+                //         //     // let timestamp = new Date(day[0] * 1000);
+                //         //     return singleTimestamp});
+                //             // console.log(day)
 
-                        // let main_temp = obj.list.map((jeff) => {
-                        //     let temperature = ((jeff.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
-                        //     return temperature});
-                            // console.log('hey', main_temp);
+                //         // let main_temp = obj.list.map((jeff) => {
+                //         //     let temperature = ((jeff.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
+                //         //     return temperature});
+                //             // console.log('hey', main_temp);
 
-                        // let min_temp = obj.list.map((harry) => {
-                        //     let temp = ((harry.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
-                        //     return temp});
+                //         // let min_temp = obj.list.map((harry) => {
+                //         //     let temp = ((harry.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
+                //         //     return temp});
 
-                        // let max_temp = obj.list.map((harry) => {
-                        //     let temp = ((harry.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
-                        //     return temp});    
+                //         // let max_temp = obj.list.map((harry) => {
+                //         //     let temp = ((harry.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
+                //         //     return temp});    
 
-                        this.setState ({
-                            forecast_display: [...this.state.forecast_display, {
-                            forecast_weather: obj.list,
-                            // forecast_timestamp: day,
-                            // forecast_mainTemp: main_temp,
-                            // forecast_minTemp: min_temp, 
-                            // forecast_maxTemp: max_temp, 
-                            }]
-                        })
-                        // console.log('wow', this.state.forecast_display[0].forecast_mainTemp[0]);
-                    })
-            })
-                
+                //         this.setState ({
+                //             forecast_display: [...this.state.forecast_display, {
+                //             forecast_weather: obj.list,
+                //             // forecast_timestamp: day,
+                //             // forecast_mainTemp: main_temp,
+                //             // forecast_minTemp: min_temp, 
+                //             // forecast_maxTemp: max_temp, 
+                //             }]
+                //         })
+                //         // console.log('wow', this.state.forecast_display[0].forecast_mainTemp[0]);
+                //     })
     }
+                
 
+
+    getTheWeather = (obj) => {
+        console.log(`WEATHER OBJ: `, obj)
+        let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
+        let weather_condition =  obj.weather.map((bob) => {
+            return bob.main
+        });   
+            // console.log(weather_condition)
+        let weather_description = obj.weather.map((bob) => {
+            return bob.description
+        });
+        this.setState ({
+            current_weather: obj,
+            city: obj.name,
+            main: weather_condition,
+            description: weather_description,
+            temperature: current_temp,
+            humidity: obj.main.humidity,
+            wind: obj.wind.speed,
+        })
+    }
     
 
     // checks to see if there is any data, if there is data, render the data.
-    _showCurrentWeather = () => {
+    showCurrentWeather = () => {
+        // this.state.current_weather ? 
+        //     <CurrentWeather
+        //         city = {this.state.city}
+        //         weather_condition= {`${this.state.description}`}
+        //         temperature = {this.state.temperature}
+        //         humidity = {this.state.humidity}
+        //         wind = {this.state.wind}
+        //     /> : null
         if(this.state.current_weather) {
             return (
                 <CurrentWeather
-                    name = {this.state.name}
+                    city = {this.state.city}
                     weather_condition= {`${this.state.description}`}
                     temperature = {this.state.temperature}
                     humidity = {this.state.humidity}
