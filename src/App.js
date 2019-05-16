@@ -5,8 +5,8 @@ import {
     // Link
 }   from 'react-router-dom';
 import './App.css';
-import Navbar from './Navbar';
-import Weather from './Weather';
+// import Navbar from './components/Navbar';
+import Weather from './components/Weather';
 import About from './About';
 import Home from './Home';
 
@@ -16,7 +16,7 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
-                    <Navbar />
+                    {/* <Navbar /> */}
                     <Route path = '/' exact component = {Home} />
                     <Route path = '/about' component = {About} />
                     <Route path = '/weather' component = {Weather} /> 
