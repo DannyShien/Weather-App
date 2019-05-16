@@ -1,26 +1,29 @@
+// Class components are stateful components. They hold state to be altered. 
+
+// Importing React 'Component' from the react framework.
 import React, { Component } from 'react';
 
-
+// Connecting other components to this component page. 
 import Search from './Search';
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
 // import './Weather.css';
-// import Key from './config';
 
-
+// Establishing a class component called Wetaher. 
 class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
             current_weather: null,
-            forecast_weather: null,
-            name: '', // city name
+            name: '', 
             weather: '',
-            main: '', // weather group parameters 
-            description: '', // descriptions of parameters
+            main: '', 
+            description: '', 
             temperature: '', 
             humidity: '',
-            wind: '', // speed
+            wind: '',
+
+            forecast_weather: null,
             forecast_display: [],
             forecast_timestamp: '',
             forecast_mainTemp: '',
@@ -30,13 +33,23 @@ class Weather extends Component {
             forecast_wind:''
         }
     }
+
+    // Setting the state for 'name' to be used in the input. 
+    _citySearch = (input) => {
+        console.log(input)
+        this.setState({
+            name: input
+        });
+
+    }
+
     render() {
         return (
-            <div class-Name = 'weather-container'>
+            <div className = 'weather-container'>
                 <div className='weather'>   
-                    <h1>React Weather API</h1>
+                    <h1>RainOrShine 2.0</h1>
                     <div className = 'weather-display'>
-                        <h4>Check your city's weather.</h4>
+                        <h4>What's the weather today?</h4>
                         <Search
                         onSubmit = {this._onSubmit}
                         newInput = {this.state.name}
@@ -47,7 +60,7 @@ class Weather extends Component {
                     </div>
                 </div>
                 <div className = 'forecast-display'>
-                    <h2 classname = 'forecast-title'>3 hr Interval Forecast</h2>
+                    <h2 className = 'forecast-title'>3 hr Interval Forecast</h2>
                     {this._showForecast()}
                 </div>
             </div>
@@ -129,14 +142,7 @@ class Weather extends Component {
                 
     }
 
-    // Setting the state for 'name' to be used in the input. 
-    _citySearch = (input) => {
-        // console.log(input)
-        this.setState({
-            name: input
-        });
-
-    }
+    
 
     // checks to see if there is any data, if there is data, render the data.
     _showCurrentWeather = () => {
