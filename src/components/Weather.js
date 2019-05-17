@@ -35,7 +35,6 @@ class Weather extends Component {
     }
 
    
-
     render() {
         return (
             <div className = 'weather-container'>
@@ -48,7 +47,6 @@ class Weather extends Component {
                             newInput = {this.state.city}
                             handleChange = {this.citySearch}
                         />
-
                         {this.showCurrentWeather()}
                     </div>
                 </div>
@@ -62,7 +60,7 @@ class Weather extends Component {
 
     // Setting the state for 'city' to be used in the input. 
     citySearch = (input) => {
-        console.log(input)
+        // console.log(input)
         this.setState({
             city: input
         });
@@ -129,7 +127,7 @@ class Weather extends Component {
 
     getTheWeather = (obj) => {
         console.log(`WEATHER OBJ: `, obj)
-        let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
+        let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(0);
         let weather_condition =  obj.weather.map((bob) => {
             return bob.main
         });   
@@ -149,45 +147,34 @@ class Weather extends Component {
     }
     
 
-    // checks to see if there is any data, if there is data, render the data.
+    // Uses ternary to check if there is any data, if there is data, render the data.
     showCurrentWeather = () => {
-        // this.state.current_weather ? 
-        //     <CurrentWeather
-        //         city = {this.state.city}
-        //         weather_condition= {`${this.state.description}`}
-        //         temperature = {this.state.temperature}
-        //         humidity = {this.state.humidity}
-        //         wind = {this.state.wind}
-        //     /> : null
-        if(this.state.current_weather) {
-            return (
+        return (
+            this.state.current_weather ? 
                 <CurrentWeather
                     city = {this.state.city}
                     weather_condition= {`${this.state.description}`}
                     temperature = {this.state.temperature}
                     humidity = {this.state.humidity}
                     wind = {this.state.wind}
-                /> 
+                /> : null
             )
-        } else {
-            return (null);
-        }
     }
 
-    _showForecast = () => { 
-        if (!this.state.forecast_weather) {
-            return (
-                <Forecast 
-                    threeHourForecast = {this.state.forecast_display}
-                    // timestamp = {`${this.state.forecast_timestamp}`}
-                    // mainTemp = {`${this.state.forecast_mainTemp}`}
-                />
-            )
-        } else {
-            console.log('No data grabbed.')
-            return (null);
-        }
-    }
+    // _showForecast = () => { 
+    //     if (!this.state.forecast_weather) {
+    //         return (
+    //             <Forecast 
+    //                 threeHourForecast = {this.state.forecast_display}
+    //                 // timestamp = {`${this.state.forecast_timestamp}`}
+    //                 // mainTemp = {`${this.state.forecast_mainTemp}`}
+    //             />
+    //         )
+    //     } else {
+    //         console.log('No data grabbed.')
+    //         return (null);
+    //     }
+    // }
 }
 
 export default Weather;

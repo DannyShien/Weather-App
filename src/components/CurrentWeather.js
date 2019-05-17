@@ -1,14 +1,19 @@
+// Stateless component that does not manage state.
 import React from 'react';
 
 const CurrentWeather = (props) => {
-    // console.log('This is being passed', props);
+    console.log('THIS IS BEING PASSES:', props);
     return (
-        <div className = 'weather-info'>
-            <h2>{props.name}</h2>
-            <li><strong>Temperature:</strong> {`${props.temperature}°F`}</li>
-            <li><strong>Weather Condition:</strong> {`${props.weather_condition}`}</li>
-            <li><strong>Humidity:</strong> {`${props.humidity}%`}</li>
-            <li><strong>Wind:</strong>  {`${props.wind} mph`}</li>
+        <div>
+            <div className = 'weather-info'>
+                <h2>{props.city}</h2>
+                <li>{`${props.weather_condition}`}</li>
+                <li>{`${props.temperature}°F`}</li>
+            </div>
+            {/* <div>
+                <li><strong>Humidity:</strong> {`${props.humidity}%`}</li>
+                <li><strong>Wind:</strong>  {`${props.wind} mph`}</li>
+            </div> */}
         </div>
     )
 
