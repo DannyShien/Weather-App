@@ -6,7 +6,8 @@ const Search = (props) => {
         <form 
             className = 'search center'
             onSubmit={(event) => {
-            // event.preventDefault();
+                console.log('IN THE FORM')
+            event.preventDefault();
             props.onSubmit(event)
         }} 
         >
@@ -20,10 +21,13 @@ const Search = (props) => {
                     props.handleChange(e.target.value);
                 }}
                 value = {props.newInput} 
-
             />
-            <button className = 'btn' type = 'submit' value = 'search'>
-                Submit</button> 
+            <button 
+                className = 'btn' 
+                type = 'submit' 
+                value = 'search'
+                // onClick={props.click}
+            >Submit</button> 
         </form>  
     );
 }

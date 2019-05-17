@@ -12,6 +12,7 @@ import Forecast from './Forecast';
 // Establishing a class component called Weather. 
 class Weather extends Component {
     constructor(props) {
+        console.log(props)
         super(props);
         this.state = {
             current_weather: null,
@@ -34,14 +35,23 @@ class Weather extends Component {
         }
     }
 
+    componentDidMount(props) {
+        console.log('WEATHER.JS PROPS: ', props)
+    }
    
     render() {
         return (
-            <div className = 'weather-container'>
-               
-                        {this.showCurrentWeather()}
-                  
-            </div>
+            // <div className = 'weather-container'>
+                this.state.current_weather ? 
+                <CurrentWeather
+                    city = {this.state.city}
+                    weather_condition = {`${this.state.description}`}
+                    temperature = {this.state.temperature}
+                    humidity = {this.state.humidity}
+                    wind = {this.state.wind}
+                /> : null               
+
+            // </div>
         );
     }
 
@@ -128,19 +138,19 @@ class Weather extends Component {
     }
     
 
-    // Uses ternary to check if there is any data, if there is data, render the data.
-    showCurrentWeather = () => {
-        return (
-            this.state.current_weather ? 
-                <CurrentWeather
-                    city = {this.state.city}
-                    weather_condition= {`${this.state.description}`}
-                    temperature = {this.state.temperature}
-                    humidity = {this.state.humidity}
-                    wind = {this.state.wind}
-                /> : null
-            )
-    }
+    // // Uses ternary to check if there is any data, if there is data, render the data.
+    // showCurrentWeather = () => {
+    //     return (
+    //         this.state.current_weather ? 
+    //             <CurrentWeather
+    //                 city = {this.state.city}
+    //                 weather_condition= {`${this.state.description}`}
+    //                 temperature = {this.state.temperature}
+    //                 humidity = {this.state.humidity}
+    //                 wind = {this.state.wind}
+    //             /> : null
+    //         )
+    // }
 
     // _showForecast = () => { 
     //     if (!this.state.forecast_weather) {
