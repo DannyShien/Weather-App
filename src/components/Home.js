@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Search from './components/Search';
+import Search from './Search';
 import { Redirect } from 'react-router-dom';
+import './Home.css'
 
 
 class Home extends Component {
@@ -15,10 +16,10 @@ class Home extends Component {
 
     render() {
         return (
-            <div className = 'weather-container'>
-                <div className='weather'>   
+            <div className = 'search-container'>
+                <div className='search'>   
                     <h1>RainOrShine 2.0</h1>
-                    <div className = 'weather-display'>
+                    <div className = 'search-display'>
                         <h4>What's the weather today?</h4>
                         {/* Cannot call a function inside the render, will need to envoke with () */}
                         {this.passSearch()}

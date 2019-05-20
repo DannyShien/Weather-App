@@ -1,11 +1,11 @@
 import React from 'react';
-
+import './Search.css'
 
 const Search = (props) => { 
     // console.log(props);
     return (
         <form 
-            className = 'search center'
+            className = 'search-form center'
             onSubmit={(event) => {
                 console.log(`I'M IN THE FORM`)
             event.preventDefault();

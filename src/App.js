@@ -8,7 +8,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Weather from './components/Weather';
 // import About from './About';
-import Home from './Home';
+import Home from './components/Home';
 
 
 class App extends Component {
