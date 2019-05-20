@@ -13,46 +13,60 @@ class Home extends Component {
     }
 
 
-
     render() {
         return (
-            (!this.state.redirect) ?
             <div className = 'weather-container'>
                 <div className='weather'>   
                     <h1>RainOrShine 2.0</h1>
                     <div className = 'weather-display'>
                         <h4>What's the weather today?</h4>
-                        <Search
-                            // onSubmit = {this.onSubmit}
-                            newInput = {this.state.city}
-                            handleChange = {this.citySearch}
-                            onSubmit = {this.setRedirect}
-                        /> 
+                        {/* Cannot call a function inside the render, will need to envoke with () */}
+                        {this.passSearch()}
                     </div>
                 </div>
-                <div className = 'forecast-display'>
+                {/* <div className = 'forecast-display'>
                     <h2 className = 'forecast-title'>3 hr Interval Forecast</h2>
-                </div>
+                </div> */}
             </div>
-            : <Redirect to='/weather' />
+            
         );
     }
 
-      // Setting the state for 'city' to be used in the input. 
-      citySearch = (input) => {
+    // Setting the state for 'city' to be used in the input. 
+    citySearch = (input) => {
         this.setState({
             city: input
         });
     }
 
-    // When input is submitted, name of city is fetched from API to return weather info. 
-    setRedirect = (event) => {
-        const searchCity = this.state.city
-        // event.preventDefault();
-        console.log('CITY: ', searchCity);
+    // Sets 'redirect' to true when input is submitted
+     setRedirect = (event) => {
+        const newCity = this.state.city
+        event.preventDefault();
+        console.log(`CITY: `, newCity);
         this.setState({
             redirect: true
         })
+    }
+
+    
+    passSearch = () => {
+        const redirectTrue = this.state.redirect
+        console.log(`This is 'true'? `, redirectTrue)
+        return (
+            // Ternary: if this.state.redirect is not 'true', <Search />. else <Redirect />
+            !this.state.redirect ?
+                <Search
+                    newInput = {this.state.city}
+                    handleChange = {this.citySearch}
+                    submit = {this.setRedirect}
+                /> 
+                : <Redirect to={{
+                    pathname: '/weather',
+                    state: this.state.city
+                }}/> 
+                
+        )
     }
 
 

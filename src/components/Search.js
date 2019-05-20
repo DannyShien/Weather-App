@@ -2,13 +2,14 @@ import React from 'react';
 
 
 const Search = (props) => { 
+    // console.log(props);
     return (
         <form 
             className = 'search center'
             onSubmit={(event) => {
-                console.log('IN THE FORM')
+                console.log(`I'M IN THE FORM`)
             event.preventDefault();
-            props.onSubmit(event)
+            props.submit(event)
         }} 
         >
             <input
@@ -17,7 +18,6 @@ const Search = (props) => {
                 placeholder = 'Search City'
                 // onChange, accepts the new value of what is being changed for input
                 onChange = {(e) => {
-                    // console.log(e.target.value);
                     props.handleChange(e.target.value);
                 }}
                 value = {props.newInput} 
@@ -26,7 +26,6 @@ const Search = (props) => {
                 className = 'btn' 
                 type = 'submit' 
                 value = 'search'
-                // onClick={props.click}
             >Submit</button> 
         </form>  
     );

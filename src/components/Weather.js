@@ -12,7 +12,6 @@ import Forecast from './Forecast';
 // Establishing a class component called Weather. 
 class Weather extends Component {
     constructor(props) {
-        console.log(props)
         super(props);
         this.state = {
             current_weather: null,
@@ -35,8 +34,16 @@ class Weather extends Component {
         }
     }
 
-    componentDidMount(props) {
-        console.log('WEATHER.JS PROPS: ', props)
+    componentDidMount(event) {
+        const searchCity = this.props.location.state
+        // event.preventDefault();
+        // console.log(searchCity);
+        console.log('Input Submitted');
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=dee07fae47d614b4f9cb0a8cd0a2cfeb`)
+            .then(r => {
+                return r.json()
+            })
+            .then(this.getTheWeather)
     }
    
     render() {
@@ -55,19 +62,23 @@ class Weather extends Component {
         );
     }
 
+    dataFetch = (city)  => {
+        console.log(city); 
+    }
   
 
     // When input is submitted, name of city is fetched from API to return weather info. 
-    _onSubmit = (event) => {
-        const searchCity = this.state.city
-        event.preventDefault();
-        // console.log(searchCity);
-        console.log('Input Submitted');
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=dee07fae47d614b4f9cb0a8cd0a2cfeb`)
-            .then(r => {
-                return r.json()
-            })
-            .then(this.getTheWeather)
+    // onSearch = (event) => {
+    //     console.log(event)
+    //     const searchCity = this.state.city
+    //     event.preventDefault();
+    //     // console.log(searchCity);
+    //     console.log('Input Submitted');
+    //     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=dee07fae47d614b4f9cb0a8cd0a2cfeb`)
+    //         .then(r => {
+    //             return r.json()
+    //         })
+    //         .then(this.getTheWeather)
             // console.log('Weather Info:', obj);
                 // fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=16&APPID=0f120aa36b999f92a1be873d99468369`)
                 //     // .catch(err =>{
@@ -112,7 +123,7 @@ class Weather extends Component {
                 //         })
                 //         // console.log('wow', this.state.forecast_display[0].forecast_mainTemp[0]);
                 //     })
-    }
+    // }
                 
 
 
