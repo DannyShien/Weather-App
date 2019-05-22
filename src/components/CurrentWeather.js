@@ -1,19 +1,29 @@
 // Stateless component that does not manage state.
 import React from 'react';
+import './CurrentWeather.css';
 
-const CurrentWeather = (props) => {
-    console.log('THIS IS BEING PASSES:', props);
+const CurrentWeather = ({city, condition, temperature, icon, humidity, wind, clouds}) => {
+    // console.log('THIS IS BEING PASSED:', props);
     return (
         <div>
             <div className = 'weather-info'>
-                <h2>{props.city}</h2>
-                <li>{`${props.weather_condition}`}</li>
-                <li>{`${props.temperature}°F`}</li>
+                <h2>{city}</h2>
+                <li>{condition}</li>
+                <li>{`${temperature}°F`}</li>
             </div>
-            {/* <div>
-                <li><strong>Humidity:</strong> {`${props.humidity}%`}</li>
-                <li><strong>Wind:</strong>  {`${props.wind} mph`}</li>
-            </div> */}
+
+            <div>
+                <img src={`https://openweathermap.org/img/w/${icon}.png`}  alt='weather icon' />
+            </div>
+            
+            <div>
+            
+            </div>
+            <div>
+                <li>Humidity: {`${humidity}%`}</li>
+                <li>Wind: {`${wind} mph`}</li>
+                <li>Clouds: {`${clouds} %`}</li>
+            </div>
         </div>
     )
 

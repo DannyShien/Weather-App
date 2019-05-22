@@ -16,12 +16,12 @@ class Weather extends Component {
         this.state = {
             current_weather: null,
             city: '', 
-            weather: '',
-            main: '', 
-            description: '', 
+            condition: '', 
             temperature: '', 
+            icon: '', 
             humidity: '',
             wind: '',
+            clouds: '',
 
             forecast_weather: null,
             forecast_display: [],
@@ -40,9 +40,8 @@ class Weather extends Component {
         // console.log(searchCity);
         console.log('Input Submitted');
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=dee07fae47d614b4f9cb0a8cd0a2cfeb`)
-            .then(r => {
-                return r.json()
-            })
+            .then(r => {return r.json()})
+            .catch(err => {console.log(err)})
             .then(this.getTheWeather)
     }
    
@@ -52,19 +51,41 @@ class Weather extends Component {
                 this.state.current_weather ? 
                 <CurrentWeather
                     city = {this.state.city}
-                    weather_condition = {`${this.state.description}`}
+                    condition = {this.state.condition}
                     temperature = {this.state.temperature}
+                    icon = {this.state.icon}
                     humidity = {this.state.humidity}
                     wind = {this.state.wind}
+                    clouds = {this.state.clouds}
                 /> : null               
 
             // </div>
         );
     }
 
-    dataFetch = (city)  => {
-        console.log(city); 
+    getTheWeather = (obj) => {
+        console.log(`WEATHER OBJ: `, obj)
+        let condition = obj.weather.map((condition) => {
+            return condition.description
+        });
+        let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(0);
+        let icon = obj.weather.map((code) => {return code.icon})
+        let humidity = obj.main.humidity
+        let wind = obj.wind.speed
+        let clouds = obj.clouds.all
+        
+        this.setState ({
+            current_weather: obj,
+            city: obj.name,
+            condition: condition,
+            temperature: current_temp,
+            humidity: humidity,
+            wind: wind,
+            clouds: clouds,
+            icon: icon
+        })
     }
+
   
 
     // When input is submitted, name of city is fetched from API to return weather info. 
@@ -126,27 +147,6 @@ class Weather extends Component {
     // }
                 
 
-
-    getTheWeather = (obj) => {
-        console.log(`WEATHER OBJ: `, obj)
-        let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(0);
-        let weather_condition =  obj.weather.map((bob) => {
-            return bob.main
-        });   
-            // console.log(weather_condition)
-        let weather_description = obj.weather.map((bob) => {
-            return bob.description
-        });
-        this.setState ({
-            current_weather: obj,
-            city: obj.name,
-            main: weather_condition,
-            description: weather_description,
-            temperature: current_temp,
-            humidity: obj.main.humidity,
-            wind: obj.wind.speed,
-        })
-    }
     
 
     // // Uses ternary to check if there is any data, if there is data, render the data.
