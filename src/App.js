@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+// Import BrowserRouter to use Route
 import {
     BrowserRouter as Router,
     Route,
-    // Link
+
 }   from 'react-router-dom';
 import './App.css';
+
+// Importing other components to connect my files.
 import Navbar from './components/Navbar';
-import Weather from './components/Weather';
-// import About from './About';
 import Home from './components/Home';
+import Weather from './components/Weather';
 
 
 class App extends Component {
@@ -18,7 +20,6 @@ class App extends Component {
                 <div className="App">
                     <Navbar />
                     <Route path = '/' exact component = {Home} />
-                    {/* <Route path = '/about' component = {About} /> */}
                     <Route path = '/weather' component = {Weather} /> 
                 </div>
             </Router>

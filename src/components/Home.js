@@ -3,7 +3,7 @@ import Search from './Search';
 import { Redirect } from 'react-router-dom';
 import './Home.css'
 
-
+// Home component is a statefull component(parent component).
 class Home extends Component {
     constructor(props) {
         super(props); 
@@ -12,8 +12,6 @@ class Home extends Component {
             redirect: false
         }
     }
-
-
     render() {
         return (
             <div className = 'search-container'>
@@ -55,14 +53,16 @@ class Home extends Component {
         const redirectTrue = this.state.redirect
         console.log(`This is 'true'? `, redirectTrue)
         return (
-            // Ternary: if this.state.redirect is not 'true', <Search />. else <Redirect />
-            !this.state.redirect ?
+            // Ternary: if redirectTrue is not 'true', <Search /> else <Redirect />
+            !redirectTrue ?
                 <Search
+                    // Establishing properties to be passed to the Search component.
                     newInput = {this.state.city}
                     handleChange = {this.citySearch}
                     submit = {this.setRedirect}
                 /> 
                 : <Redirect to={{
+                    // This format allow me to be more dynamic as to what I can pass through with a Redirect. 
                     pathname: '/weather',
                     state: this.state.city
                 }}/> 
