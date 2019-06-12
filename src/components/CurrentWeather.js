@@ -4,7 +4,7 @@ import './CurrentWeather.css';
 // Stateless/functional component that does not manage state.
 // Establishing props by deconstruction
 const CurrentWeather = ({city, condition, temperature, icon, humidity, wind, clouds}) => {
-    // console.log('THIS IS BEING PASSED:', props);
+    // console.log(icon)
     return (
         <div className='current-weather'>
             <div className='left-display'>
