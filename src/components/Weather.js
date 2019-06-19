@@ -109,16 +109,26 @@ class Weather extends Component {
     }
 
     getForecast = (obj) => {
+        // ===============================
+        // NEED TO FIND HOW TO RETURN THE OBJECTS WITHIN THE ARRAY. NOT A NEW ARRAY.
+        // ===============================  
         let forecastList = obj.list
-        console.log(`FORECAST: `, forecastList)
-        let forecastArray = forecastList.map((forecast) => {
-            return forecast
-        })
-        // console.log(forecastArray)
+        // console.log(`FORECAST: `, forecastList)
+
+        // let forecastArray = forecastList.map((forecast) => {
+        //     console.log(forecast)
+        //     return forecast
+        // });
+        // console.log(`FORECASTARRAY: `, forecastArray)
 
         let day = forecastList.map((date) => {
-            let singleTimestamp = new Date(date.dt * 1000)
-            return singleTimestamp
+            // let singleTimestamp = new Date(date.dt * 1000)
+            // console.log(date)
+            let days = date
+            // let newDate = date.dt * 1000
+            // console.log(newDate)
+            // return singleTimestamp 
+            return days
         });
         // console.log(day)
     
@@ -132,7 +142,7 @@ class Weather extends Component {
             let min = ((t.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
             return min
         });
-        // console.log('Min Temp: ', minTemp)
+        console.log('Min Temp: ', minTemp)
     
         let maxTemp = forecastList.map((t) => {
             let max = ((t.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
@@ -140,20 +150,27 @@ class Weather extends Component {
         });    
         // console.log('Max Temp: ', maxTemp)
     
-        let icon = forecastList.map((i) => {
+        let returnedIconArray = forecastList.map((i) => {
             console.log(i)
-            let iconArray = i.weather
-            return iconArray
+            console.log(i.weather)
+            let iconArr = i.weather
+            let icon = iconArr.map((iconObj) => {
+                console.log(iconObj)
+                let theIcon = iconObj.icon
+                return theIcon
+            })
+            console.log(icon)
+            return icon
         })
-        console.log(icon)
+        console.log(returnedIconArray)
         
         this.setState ({
-            forecastData: forecastArray,
+            // forecastData: forecastArray,
             forecast_timestamp: day,
             // forecast_mainTemp: mainTemp,
             forecast_minTemp: minTemp, 
             forecast_maxTemp: maxTemp, 
-            forecast_icon: icon
+            forecast_icon: returnedIconArray
         })
         // console.log(this.state.forecastData);
     }

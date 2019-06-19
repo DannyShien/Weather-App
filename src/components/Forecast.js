@@ -1,7 +1,7 @@
 import React from 'react';
 
 const convertDate = (day) => {
-    console.log(`THE DAY: `, day)
+    // console.log(`THE DAY: `, day)
     let d = new Date(day);
     const weekday = new Array(7);
         weekday[0] = "Sun";
@@ -18,16 +18,22 @@ const convertDate = (day) => {
     return n
 };
 
-const Forecast = ({date, iconArray, min, max}) => {
+const Forecast = (props) => {
+    console.log(props)
     // console.log(`DATE: `, date)
     // console.log(`TEMPERATURE: `,temperature)
     // console.log(`MIN: `,min)
     // console.log(`MAX: `,max)
     // console.log(`FORECAST ARRAY: `,forecast)
     // console.log(iconArray)
+    let i = 0
+    const d = [i] <= (i === 3)
+    // console.log(d)
+    // let forecast_day = convertDate((date.dt_txt));
     return (
         <div>
-            {
+            
+            {/* {
                 iconArray.map((iconObj, i) => {
                     let icon = iconObj[0].icon
                     return (
@@ -36,7 +42,7 @@ const Forecast = ({date, iconArray, min, max}) => {
                         </div>
                     )
                 })
-            }
+            } */}
         </div>
     )
 
