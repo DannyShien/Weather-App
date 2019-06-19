@@ -52,9 +52,7 @@ class Weather extends Component {
 
                 {this.state.forecastData ? 
                     <Forecast 
-                    // forecast = {this.state.forecastData}
                     dates = {this.state.forecast_timestamp}
-                    // temperature = {this.state.forecast_mainTemp}
                     mins = {this.state.forecast_minTemp}
                     maxs = {this.state.forecast_maxTemp}
                     icons = {this.state.forecast_icon}
@@ -63,20 +61,17 @@ class Weather extends Component {
             </>
         );
     }
-
+    // this function takes the input and runs it through the API and is being called in the componentDidMount
     fetchWeather = () => {
         const searchCity = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
-        // event.preventDefault();
-        // console.log('Input Submitted');
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=${owKey}`)
             .then(r => {return r.json()})
             .catch(err => {console.log(err)})
             .then(this.getTheWeather)
     }
-
+    // this function is the next step in the promise chain
     getTheWeather = (obj) => {
-        // console.log(`WEATHER OBJ: `, obj)
         let condition = obj.weather.map((condition) => {
             return condition.description
         });
@@ -96,9 +91,9 @@ class Weather extends Component {
             clouds: clouds,
             icon: icon
         })
-        // console.log(this.state.weatherData)
     }
 
+    // this function takes the same input value and runs it through another API for the forecast
     fectchForecast = () => {
         const searchCity = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
@@ -108,60 +103,39 @@ class Weather extends Component {
             .then(this.getForecast)
     }
 
+    // this function is the next step in the promise chain in the fetchForecast function
     getForecast = (obj) => {
         let forecastList = obj.list
-        // console.log(`FORECAST: `, forecastList)
-
         let forecastArray = forecastList.map((forecast) => {
-            // console.log(forecast)
             return forecast
         });
-        // console.log(`FORECASTARRAY: `, forecastArray)
-
         let daysArray = forecastList.map((dateObj) => {
-            // let theDate = new Date(dateObj.dt * 1000)
-            // console.log(dateObj)
             let theDate = new Date(dateObj.dt_txt)
-            // console.log(theDate)
             return theDate
         });
-        // console.log(`Date: `, daysArray)
-
         let minTemp = forecastList.map((t) => {
-            // console.log(t)
             let min = ((t.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
-            // console.log(min)
             return min
         });
-        // console.log('Min Temp: ', minTemp)
-    
         let maxTemp = forecastList.map((t) => {
             let max = ((t.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
             return max
         });    
-        // console.log('Max Temp: ', maxTemp)
-    
+        // this code block returns an array of arrays
         let IconArrays = forecastList.map((i) => {
-            // console.log(i)
-            // console.log(i.weather)
             let iconArr = i.weather
             let icon = iconArr.map((iconObj) => {
-                // console.log(iconObj)
                 let theIcon = iconObj.icon
                 return theIcon
             })
-            // console.log(icon)
             return icon
         })
-        // console.log(`Icon: `, IconArrays)
+        // this code block returns the arrays, as strings, that's in the array 
         let iconsArr = IconArrays.map((icons) => {
-            // console.log(icons)
             let icon = icons[0]
-            // console.log(icon)
             return icon
         })
         // console.log(iconsArr)
-
         
         this.setState ({
             forecastData: forecastArray,
