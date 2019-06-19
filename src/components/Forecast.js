@@ -1,41 +1,48 @@
 import React from 'react';
 
-const convertDate = (day) => {
-    // console.log(`THE DAY: `, day)
-    let d = new Date(day);
-    const weekday = new Array(7);
-        weekday[0] = "Sun";
-        weekday[1] = "Mon";
-        weekday[2] = "Tues";
-        weekday[3] = "Wed";
-        weekday[4] = "Thurs";
-        weekday[5] = "Fri";
-        weekday[6] = "Sat";
+// const convertDate = (day) => {
+//     // console.log(`THE DAY: `, day)
+//     let d = new Date(day);
+//     const weekday = new Array(7);
+//         weekday[0] = "Sun";
+//         weekday[1] = "Mon";
+//         weekday[2] = "Tues";
+//         weekday[3] = "Wed";
+//         weekday[4] = "Thurs";
+//         weekday[5] = "Fri";
+//         weekday[6] = "Sat";
 
-    let n = weekday[d.getDay()];
-    // console.log(n)
+//     let n = weekday[d.getDay()];
+//     // console.log(n)
 
-    return n
-};
+//     return n
+// };
 
-const Forecast = (props) => {
-    console.log(props)
-    // console.log(`DATE: `, date)
-    // console.log(`TEMPERATURE: `,temperature)
-    // console.log(`MIN: `,min)
+const Forecast = ({dates, mins, max, icons}) => {
+    // console.log(`DATE: `, dates)
+    // console.log(`MIN: `,mins)
     // console.log(`MAX: `,max)
-    // console.log(`FORECAST ARRAY: `,forecast)
-    // console.log(iconArray)
-    let i = 0
-    const d = [i] <= (i === 3)
+
+    // let i = 0
+    // const d = [i] <= (i === 3)
     // console.log(d)
     // let forecast_day = convertDate((date.dt_txt));
+    let icon = icons.map((iconObj, i) => {
+        let icon = iconObj
+        return (
+            <div key = {i}>
+                <img src={`https://openweathermap.org/img/w/${icon}.png`} />
+            </div>
+        )
+    });
+
     return (
         <div>
-            
+            {icon}
             {/* {
-                iconArray.map((iconObj, i) => {
-                    let icon = iconObj[0].icon
+                icons.map((iconObj, i) => {
+                    // console.log(iconObj)
+                    let icon = iconObj
                     return (
                         <div key = {i}>
                             <img src={`https://openweathermap.org/img/w/${icon}.png`} />

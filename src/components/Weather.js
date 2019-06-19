@@ -53,11 +53,11 @@ class Weather extends Component {
                 {this.state.forecastData ? 
                     <Forecast 
                     // forecast = {this.state.forecastData}
-                    date = {this.state.forecast_timestamp}
+                    dates = {this.state.forecast_timestamp}
                     // temperature = {this.state.forecast_mainTemp}
-                    min = {this.state.forecast_minTemp}
+                    mins = {this.state.forecast_minTemp}
                     max = {this.state.forecast_maxTemp}
-                    iconArray = {this.state.forecast_icon}
+                    icons = {this.state.forecast_icon}
                 /> 
                 : null}
             </>
@@ -109,40 +109,31 @@ class Weather extends Component {
     }
 
     getForecast = (obj) => {
-        // ===============================
-        // NEED TO FIND HOW TO RETURN THE OBJECTS WITHIN THE ARRAY. NOT A NEW ARRAY.
-        // ===============================  
         let forecastList = obj.list
         // console.log(`FORECAST: `, forecastList)
 
-        // let forecastArray = forecastList.map((forecast) => {
-        //     console.log(forecast)
-        //     return forecast
-        // });
+        let forecastArray = forecastList.map((forecast) => {
+            // console.log(forecast)
+            return forecast
+        });
         // console.log(`FORECASTARRAY: `, forecastArray)
 
-        let day = forecastList.map((date) => {
-            // let singleTimestamp = new Date(date.dt * 1000)
-            // console.log(date)
-            let days = date
-            // let newDate = date.dt * 1000
-            // console.log(newDate)
-            // return singleTimestamp 
-            return days
+        let daysArray = forecastList.map((dateObj) => {
+            // let theDate = new Date(dateObj.dt * 1000)
+            // console.log(dateObj)
+            let theDate = new Date(dateObj.dt_txt)
+            // console.log(theDate)
+            return theDate
         });
-        // console.log(day)
-    
-        // let mainTemp = forecastList.map((t) => {
-        //     let temperature = ((t.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
-        //     return temperature
-        // });
-        // console.log('Main Temp: ', mainTemp);
+        // console.log(`Date: `, daysArray)
 
         let minTemp = forecastList.map((t) => {
+            // console.log(t)
             let min = ((t.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
+            // console.log(min)
             return min
         });
-        console.log('Min Temp: ', minTemp)
+        // console.log('Min Temp: ', minTemp)
     
         let maxTemp = forecastList.map((t) => {
             let max = ((t.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
@@ -150,29 +141,35 @@ class Weather extends Component {
         });    
         // console.log('Max Temp: ', maxTemp)
     
-        let returnedIconArray = forecastList.map((i) => {
-            console.log(i)
-            console.log(i.weather)
+        let IconArrays = forecastList.map((i) => {
+            // console.log(i)
+            // console.log(i.weather)
             let iconArr = i.weather
             let icon = iconArr.map((iconObj) => {
-                console.log(iconObj)
+                // console.log(iconObj)
                 let theIcon = iconObj.icon
                 return theIcon
             })
-            console.log(icon)
+            // console.log(icon)
             return icon
         })
-        console.log(returnedIconArray)
+        // console.log(`Icon: `, IconArrays)
+        let iconsArr = IconArrays.map((icons) => {
+            // console.log(icons)
+            let icon = icons[0]
+            // console.log(icon)
+            return icon
+        })
+        // console.log(iconsArr)
+
         
         this.setState ({
-            // forecastData: forecastArray,
-            forecast_timestamp: day,
-            // forecast_mainTemp: mainTemp,
+            forecastData: forecastArray,
+            forecast_timestamp: daysArray,
             forecast_minTemp: minTemp, 
             forecast_maxTemp: maxTemp, 
-            forecast_icon: returnedIconArray
+            forecast_icon: iconsArr
         })
-        // console.log(this.state.forecastData);
     }
 }
 
