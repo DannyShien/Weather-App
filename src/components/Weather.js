@@ -56,7 +56,7 @@ class Weather extends Component {
                     dates = {this.state.forecast_timestamp}
                     // temperature = {this.state.forecast_mainTemp}
                     mins = {this.state.forecast_minTemp}
-                    max = {this.state.forecast_maxTemp}
+                    maxs = {this.state.forecast_maxTemp}
                     icons = {this.state.forecast_icon}
                 /> 
                 : null}

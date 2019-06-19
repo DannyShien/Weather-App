@@ -1,27 +1,25 @@
 import React from 'react';
 
-// const convertDate = (day) => {
-//     // console.log(`THE DAY: `, day)
-//     let d = new Date(day);
-//     const weekday = new Array(7);
-//         weekday[0] = "Sun";
-//         weekday[1] = "Mon";
-//         weekday[2] = "Tues";
-//         weekday[3] = "Wed";
-//         weekday[4] = "Thurs";
-//         weekday[5] = "Fri";
-//         weekday[6] = "Sat";
+const convertDate = (day) => {
+    // console.log(`THE DAY: `, day)
+    let d = new Date(day);
+    const weekday = new Array(7);
+        weekday[0] = "Sun";
+        weekday[1] = "Mon";
+        weekday[2] = "Tues";
+        weekday[3] = "Wed";
+        weekday[4] = "Thurs";
+        weekday[5] = "Fri";
+        weekday[6] = "Sat";
 
-//     let n = weekday[d.getDay()];
-//     // console.log(n)
+    let n = weekday[d.getDay()];
+    // console.log(n)
 
-//     return n
-// };
+    return n
+};
 
-const Forecast = ({dates, mins, max, icons}) => {
+const Forecast = ({dates, mins, maxs, icons}) => {
     // console.log(`DATE: `, dates)
-    // console.log(`MIN: `,mins)
-    // console.log(`MAX: `,max)
 
     // let i = 0
     // const d = [i] <= (i === 3)
@@ -30,26 +28,44 @@ const Forecast = ({dates, mins, max, icons}) => {
     let icon = icons.map((iconObj, i) => {
         let icon = iconObj
         return (
-            <div key = {i}>
+            <div key={i}>
                 <img src={`https://openweathermap.org/img/w/${icon}.png`} />
             </div>
         )
     });
 
+    let max = maxs.map((maxObj, i) => {
+        let max = maxObj
+        return (
+            <div key={i}>
+                {/* {`${max} °`} */}
+                {max}
+            </div>
+        )
+    })
+
+    let min = mins.map((minObj, i) => {
+        let min = minObj
+        return (
+            <div key={i}>
+                {/* {`${min} °F`} */}
+                {min}
+            </div>
+        )
+    }); 
+
     return (
         <div>
-            {icon}
-            {/* {
-                icons.map((iconObj, i) => {
-                    // console.log(iconObj)
-                    let icon = iconObj
-                    return (
-                        <div key = {i}>
-                            <img src={`https://openweathermap.org/img/w/${icon}.png`} />
-                        </div>
-                    )
-                })
-            } */}
+            <div>
+                {icon}
+            </div>
+            <div>
+                {min}
+            </div>
+            <div>
+                {max}
+            </div>
+        
         </div>
     )
 
