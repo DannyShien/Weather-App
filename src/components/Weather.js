@@ -103,16 +103,38 @@ class Weather extends Component {
             .then(this.getForecast)
     }
 
+    convertDate = (day) => {
+        console.log(`2. DT_TXT IS GRABBED FROM OBJ: `, day)
+        let d = new Date(day)
+        const weekday = new Array(7)
+            weekday[0] = "Sun";
+            weekday[1] = "Mon";
+            weekday[2] = "Tues";
+            weekday[3] = "Wed";
+            weekday[4] = "Thurs";
+            weekday[5] = "Fri";
+            weekday[6] = "Sat";
+    
+        let n = weekday[d.getDay()];
+        console.log(`3. DT_TXT IS PASSED IN CONVERT-DATE FUNCTION: `, n)
+        return n
+    };
+
     // this function is the next step in the promise chain in the fetchForecast function
     getForecast = (obj) => {
         let forecastList = obj.list
         let forecastArray = forecastList.map((forecast) => {
             return forecast
         });
+
         let daysArray = forecastList.map((dateObj) => {
-            let theDate = new Date(dateObj.dt_txt)
-            return theDate
+            let theDate = dateObj
+            console.log(`1. STARTS WITH OBJECT: `, theDate)
+            let date = this.convertDate(dateObj.dt_txt)
+            console.log(`4. DT_TXT IS RETURNED: `, date)
+            return date
         });
+
         let minTemp = forecastList.map((t) => {
             let min = ((t.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
             return min
@@ -136,7 +158,7 @@ class Weather extends Component {
             return icon
         })
         // console.log(iconsArr)
-        
+
         this.setState ({
             forecastData: forecastArray,
             forecast_timestamp: daysArray,
