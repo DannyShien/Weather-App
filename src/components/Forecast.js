@@ -1,15 +1,15 @@
 import React from 'react';
+import './Forecast.css';
 
-const Forecast = ({dates, mins, maxs, icons}) => {
-    // console.log(`DATE: `, dates)
-    let weekDay = dates.map((day) => {
-        console.log(day)
+const Forecast = ({dates, mains, mins, maxs, icons}) => {
+    let weekDay = dates.map((days, i) => {
+        let day = days
         return (
-            <div>
+            <div key={i}>
                 {day}
             </div>
         )
-    })
+    })              
 
     let icon = icons.map((iconObj, i) => {
         let icon = iconObj
@@ -20,41 +20,52 @@ const Forecast = ({dates, mins, maxs, icons}) => {
         )
     });
 
-    let max = maxs.map((maxObj, i) => {
-        let max = maxObj
+    let main = mains.map((mainObj, i) => {
+        let main = mainObj
         return (
             <div key={i}>
-                {/* {`${max} °`} */}
-                {max}
+                {main}
             </div>
         )
-    })
+    });
 
-    let min = mins.map((minObj, i) => {
-        let min = minObj
-        return (
-            <div key={i}>
-                {/* {`${min} °F`} */}
-                {min}
-            </div>
-        )
-    }); 
+    // let max = maxs.map((maxObj, i) => {
+    //     // let max = maxObj
+    //     return (
+    //         <div key={i}>
+    //             {/* {`${max} °`} */}
+    //             {max}
+    //         </div>
+    //     )
+    // })
+
+    // let min = mins.map((minObj, i) => {
+    //     let min = minObj
+    //     return (
+    //         <div key={i}>
+    //             {/* {`${min} °F`} */}
+    //             {min}
+    //         </div>
+    //     )
+    // }); 
 
     return (
-        <div>
-            <div>
+        <div className='forecast-display'>
+            <div className='forecast'>
                 {weekDay}
             </div>
-            <div>
+            <div className='forecast'>
                 {icon}
             </div>
-            <div>
+            <div className='forecast'>
+                {main}
+            </div>
+            {/* <div className='forecast'>
                 {min}
             </div>
-            <div>
+            <div className='forecast'>
                 {max}
-            </div>
-        
+            </div> */}
         </div>
     )
 }

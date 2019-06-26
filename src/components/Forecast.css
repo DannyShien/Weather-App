@@ -1,0 +1,36 @@
+.forecast-display {
+    border: 3px solid navy;
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    flex-direction: column ;
+    /* flex-wrap: wrap; */
+    overflow: auto;
+    /* height: 300px; */
+    /* width: 600px; */
+    margin-top: 20px;
+}
+.forecast-display .forecast:nth-child(1) {
+    outline: 1px solid green;
+}
+.forecast {
+    /* outline: 2px solid navy; */
+    margin: 10px;
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    background-color: white;
+}
+.forecast div {
+    outline: 1px solid red;
+    display: flex;
+    flex: 1;
+    margin: 2px; 
+    /* height: auto; */
+    /* width: 5vw; */
+}
+.forecast div:first-child {
+    display: flex;
+    justify-content: space-evenly;
+}
+

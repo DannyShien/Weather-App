@@ -19,53 +19,10 @@ html, body {
     flex-direction: column;
 }
 
-/* .about {
-    height: 550px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    color: gray;
-    background-color: black;
-}
-p {
-    color: white;
-    font-size: 22px;
-    width: 500px;
-    text-align: center;
-} */
 
 
 
-.forecast-display {
-    border: 3px solid navy;
-    background-color: lightskyblue;
-    display: flex;
-    justify-content: center;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    overflow: auto;
-    height: 300px;
-    width: 600px;
-    margin-top: 30px;
-}
-.pos {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    flex-direction: row; 
-    flex-wrap: wrap;
-    width: 800px;
-}
-.forecast {
-    outline: 2px solid navy;
-    width: 100px;
-    margin: 3px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-}
+
 
 
 

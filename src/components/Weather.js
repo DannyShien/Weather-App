@@ -53,7 +53,8 @@ class Weather extends Component {
                 {this.state.forecastData ? 
                     <Forecast 
                     dates = {this.state.forecast_timestamp}
-                    mins = {this.state.forecast_minTemp}
+                    mains = {this.state.forecast_mainTemp}
+                    // mins = {this.state.forecast_minTemp}
                     maxs = {this.state.forecast_maxTemp}
                     icons = {this.state.forecast_icon}
                 /> 
@@ -72,6 +73,7 @@ class Weather extends Component {
     }
     // this function is the next step in the promise chain
     getTheWeather = (obj) => {
+        // NEED A CONDITION TO RENDER NOTHING FOR "WEATHER PAGE" IF NO INPUT WAS ENTERED
         let condition = obj.weather.map((condition) => {
             return condition.description
         });
@@ -97,7 +99,7 @@ class Weather extends Component {
     fectchForecast = () => {
         const searchCity = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${searchCity}&cnt=16&APPID=${owKey}`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${searchCity}&cnt=16&APPID=${owKey}&units=imperial`)
             .then(r => {return r.json()})
             .catch(err => {console.log(err)})
             .then(this.getForecast)
@@ -135,14 +137,21 @@ class Weather extends Component {
             return date
         });
 
-        let minTemp = forecastList.map((t) => {
-            let min = ((t.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
-            return min
-        });
-        let maxTemp = forecastList.map((t) => {
-            let max = ((t.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
-            return max
-        });    
+        let mainTemp = forecastList.map((t) => {
+            let main =((t.main.temp))
+            // console.log(main)
+            return main
+        })
+
+        // let minTemp = forecastList.map((t) => {
+        //     let min = ((t.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
+        //     return min
+        // });
+        // let maxTemp = forecastList.map((t) => {
+        //     let max = ((t.main.temp_max))
+        //     // let max = ((t.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
+        //     return max
+        // });    
         // this code block returns an array of arrays
         let IconArrays = forecastList.map((i) => {
             let iconArr = i.weather
@@ -162,8 +171,9 @@ class Weather extends Component {
         this.setState ({
             forecastData: forecastArray,
             forecast_timestamp: daysArray,
-            forecast_minTemp: minTemp, 
-            forecast_maxTemp: maxTemp, 
+            forecast_mainTemp: mainTemp,
+            // forecast_minTemp: minTemp, 
+            // forecast_maxTemp: maxTemp, 
             forecast_icon: iconsArr
         })
     }

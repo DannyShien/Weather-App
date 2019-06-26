@@ -39,7 +39,7 @@ class Home extends Component {
     }
 
     // Sets 'redirect' to true when input is submitted
-     setRedirect = (event) => {
+    setRedirect = (event) => {
         const newCity = this.state.city
         event.preventDefault();
         console.log(`CITY: `, newCity);
