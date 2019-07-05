@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 // Connecting other components to this component page. 
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
-// import './Weather.css';
 
 
 // Establishing a class component called Weather. 
@@ -62,7 +61,7 @@ class Weather extends Component {
             </>
         );
     }
-    // this function takes the input and runs it through the API and is being called in the componentDidMount
+    // this method takes the input and runs it through the API and is being called in the componentDidMount
     fetchWeather = () => {
         const searchCity = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
@@ -71,7 +70,7 @@ class Weather extends Component {
             .catch(err => {console.log(err)})
             .then(this.getTheWeather)
     }
-    // this function is the next step in the promise chain
+    // this method is the next step in the promise chain
     getTheWeather = (obj) => {
         // NEED A CONDITION TO RENDER NOTHING FOR "WEATHER PAGE" IF NO INPUT WAS ENTERED
         let condition = obj.weather.map((condition) => {
@@ -95,7 +94,7 @@ class Weather extends Component {
         })
     }
 
-    // this function takes the same input value and runs it through another API for the forecast
+    // this method takes the same input value and runs it through another API for the forecast
     fectchForecast = () => {
         const searchCity = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
@@ -122,7 +121,7 @@ class Weather extends Component {
         return n
     };
 
-    // this function is the next step in the promise chain in the fetchForecast function
+    // this method is the next step in the promise chain in the fetchForecast function
     getForecast = (obj) => {
         let forecastList = obj.list
         let forecastArray = forecastList.map((forecast) => {

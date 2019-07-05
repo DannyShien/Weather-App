@@ -60,6 +60,8 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
             <div className='forecast'>
                 {main}
             </div>
+
+
             {/* <div className='forecast'>
                 {min}
             </div>
