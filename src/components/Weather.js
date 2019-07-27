@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import Navbar from './Navbar';
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
+import Search from './Search';
 
 
 // Establishing a class component called Weather. 
@@ -38,9 +39,17 @@ class Weather extends Component {
     }
    
     render() {
+        const searchBarStyle = {
+            width: '60vw',
+            display: 'flex',
+            justifyContent: 'space-between'
+        }
         return (
             <>
-                <Navbar />
+                <div style={searchBarStyle}>
+                    <Navbar />
+                    <Search />
+                </div>
                 <CurrentWeather
                     city = {this.state.city}
                     condition = {this.state.condition}
