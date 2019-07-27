@@ -5,12 +5,12 @@
     justify-content: center;
     width: 60vw;
     overflow: auto;
-    margin-top: 20px;
+    margin-top: 10px;
+    padding: 5px 0;
 }
 .forecast {
-    margin: 10px;
     display: flex;
-    width: auto;
+    width: 130vw;
     color: white;
     background-color: lightskyblue;    
 }
@@ -18,9 +18,13 @@
     display: flex;
     flex: 1;
     justify-content: center;
-    margin: 2px; 
 }
-.forecast div:first-child {
-    outline: solid 1px red;
+.forecast:first-child {
+    /* outline: solid 1px red; */
+    /* width: 130vh; */
+}
+.forecast:last-child {
+    /* outline: solid 1px green; */
+    /* width: 130vh; */
 }
 

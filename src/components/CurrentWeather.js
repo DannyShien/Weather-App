@@ -4,7 +4,14 @@ import './CurrentWeather.css';
 // Stateless/functional component that does not manage state.
 // Establishing props by deconstruction
 const CurrentWeather = ({city, condition, temperature, icon, humidity, wind, clouds}) => {
-    // console.log(icon)
+    // let weatherIcon = icon.map((currentIcon, i) => {
+    //     let icon = currentIcon
+    //     return (
+    //         <div key={i}>
+    //             <img src={`https://openweathermap.org/img/w/${icon}.png`}  alt='weather icon' />
+    //         </div>
+    //     )
+    // })
     return (
         <div className='current-weather'>
             <div className='left-display'>
@@ -19,6 +26,7 @@ const CurrentWeather = ({city, condition, temperature, icon, humidity, wind, clo
             </div>
             <div className='right-display'>
                 <div>
+                    {/* {weatherIcon} */}
                     <img src={`https://openweathermap.org/img/w/${icon}.png`}  alt='weather icon' />
                 </div>
                 <div>

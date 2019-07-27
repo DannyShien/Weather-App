@@ -48,16 +48,15 @@ class Weather extends Component {
                     wind = {this.state.wind}
                     clouds = {this.state.clouds}
                 /> 
-
                 {this.state.forecastData ? 
                     <Forecast 
-                    dates = {this.state.forecast_timestamp}
-                    mains = {this.state.forecast_mainTemp}
-                    // mins = {this.state.forecast_minTemp}
-                    maxs = {this.state.forecast_maxTemp}
-                    icons = {this.state.forecast_icon}
-                /> 
-                : null}
+                        dates = {this.state.forecast_timestamp}
+                        mains = {this.state.forecast_mainTemp}
+                        // mins = {this.state.forecast_minTemp}
+                        maxs = {this.state.forecast_maxTemp}
+                        icons = {this.state.forecast_icon}
+                    /> 
+                : null}              
             </>
         );
     }
@@ -77,7 +76,10 @@ class Weather extends Component {
             return condition.description
         });
         let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(0);
-        let icon = obj.weather.map((code) => {return code.icon})
+        let iconArr = obj.weather.map((code) => {
+            let theIcon = code.icon
+                return theIcon
+        })
         let humidity = obj.main.humidity
         let wind = obj.wind.speed
         let clouds = obj.clouds.all
@@ -90,7 +92,7 @@ class Weather extends Component {
             humidity: humidity,
             wind: wind,
             clouds: clouds,
-            icon: icon
+            icon: iconArr
         })
     }
 
@@ -156,6 +158,7 @@ class Weather extends Component {
             let iconArr = i.weather
             let icon = iconArr.map((iconObj) => {
                 let theIcon = iconObj.icon
+
                 return theIcon
             })
             return icon

@@ -5,29 +5,30 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
     let weekDay = dates.map((days, i) => {
         let day = days
         return (
-            <div key={i}>
+            <div className='timeframe' key={i}>
                 {day}
             </div>
         )
     })              
-
+    console.log(`Forecast.js icons: `, icons)
     let icon = icons.map((iconObj, i) => {
+        // console.log(`new icon: `, iconObj)
         let icon = iconObj
         return (
-            <div key={i}>
-                <img src={`https://openweathermap.org/img/w/${icon}.png`} />
+            <div className='icon' key={i}>
+                <img src={`https://openweathermap.org/img/w/${icon}.png`} alt='forecast weather icons'/>
             </div>
         )
-    });
+    })
 
     let main = mains.map((mainObj, i) => {
         let main = mainObj
         return (
-            <div key={i}>
+            <div className='temp' key={i}>
                 {main}
             </div>
         )
-    });
+    })
 
     // let max = maxs.map((maxObj, i) => {
     //     // let max = maxObj

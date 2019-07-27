@@ -23,9 +23,6 @@ class Home extends Component {
                         {this.passSearch()}
                     </div>
                 </div>
-                {/* <div className = 'forecast-display'>
-                    <h2 className = 'forecast-title'>3 hr Interval Forecast</h2>
-                </div> */}
             </div>
             
         );

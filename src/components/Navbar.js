@@ -9,7 +9,6 @@ const Navbar = () => {
         <div className = 'navbar sticky'>
             {/* Using 'Link' instead of an achor tag keep the links within React.  */}
             <Link to = '/' className = 'links'>Home</Link>
-            <Link to = '/weather' className = 'links'>Weather</Link>
         </div>
     );
 };
