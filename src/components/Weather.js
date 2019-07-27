@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 
 // Connecting other components to this component page. 
+import Navbar from './Navbar';
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
 
@@ -39,6 +40,7 @@ class Weather extends Component {
     render() {
         return (
             <>
+                <Navbar />
                 <CurrentWeather
                     city = {this.state.city}
                     condition = {this.state.condition}

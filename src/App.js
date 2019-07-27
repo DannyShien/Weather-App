@@ -8,7 +8,7 @@ import {
 import './App.css';
 
 // Importing other components to connect my files.
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Weather from './components/Weather';
 
@@ -18,7 +18,7 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
-                    <Navbar />
+                    {/* <Navbar /> */}
                     <Route path = '/' exact component = {Home} />
                     <Route path = '/weather' component = {Weather} /> 
                 </div>
