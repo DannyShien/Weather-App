@@ -29,13 +29,15 @@ class Weather extends Component {
             forecast_mainTemp: '',
             forecast_minTemp: '', 
             forecast_maxTemp: '', 
-            forecast_icon: ''
+            forecast_icon: '',
+
+            secondaryCity: ''
         }
     }
 
     componentDidMount() {
         this.fetchWeather()
-        this.fectchForecast()
+        this.fetchForecast()
     }
    
     render() {
@@ -44,11 +46,16 @@ class Weather extends Component {
             display: 'flex',
             justifyContent: 'space-between'
         }
+        // console.log(this.props)
         return (
             <>
                 <div style={searchBarStyle}>
                     <Navbar />
-                    <Search />
+                    <Search  
+                        secondaryInput={this.state.secondaryCity}
+                        handleChange={this.secondarySearch}
+                        submit={this.secondarySubmit}
+                    />
                 </div>
                 <CurrentWeather
                     city = {this.state.city}
@@ -71,17 +78,34 @@ class Weather extends Component {
             </>
         );
     }
+
+    secondarySearch = (input) => {
+        this.setState({
+            secondaryCity: input
+        });
+    }
+    
+    secondarySubmit = () => {
+        // event.preventDefault();
+        console.log(`SECONDARY FORM SUBMITTED`)
+        // this.setState({
+        //     secondaryCity: [...secondaryCity]
+        // });
+    }
+
     // this method takes the input and runs it through the API and is being called in the componentDidMount
     fetchWeather = () => {
+        console.log(this.props.location.state)
         const searchCity = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=${owKey}`)
-            .then(r => {return r.json()})
-            .catch(err => {console.log(err)})
-            .then(this.getTheWeather)
+        .then(r => {return r.json()})
+        .catch(err => {console.log(err)})
+        .then(this.getTheWeather)
     }
     // this method is the next step in the promise chain
     getTheWeather = (obj) => {
+        // console.log(obj)
         // NEED A CONDITION TO RENDER NOTHING FOR "WEATHER PAGE" IF NO INPUT WAS ENTERED
         let condition = obj.weather.map((condition) => {
             return condition.description
@@ -103,12 +127,13 @@ class Weather extends Component {
             humidity: humidity,
             wind: wind,
             clouds: clouds,
-            icon: iconArr
+            icon: iconArr,
+            newCity: obj.name
         })
     }
 
     // this method takes the same input value and runs it through another API for the forecast
-    fectchForecast = () => {
+    fetchForecast = () => {
         const searchCity = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
         fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${searchCity}&cnt=16&APPID=${owKey}&units=imperial`)

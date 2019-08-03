@@ -28,7 +28,7 @@ class Home extends Component {
     }
 
     // Setting the state for 'city' to be used in the input. 
-    citySearch = (input) => {
+    primarySearch = (input) => {
         this.setState({
             city: input
         });
@@ -36,9 +36,7 @@ class Home extends Component {
 
     // Sets 'redirect' to true when input is submitted
     setRedirect = (event) => {
-        const newCity = this.state.city
         event.preventDefault();
-        console.log(`CITY: `, newCity);
         this.setState({
             redirect: true
         })
@@ -47,18 +45,18 @@ class Home extends Component {
     
     passSearch = () => {
         const redirectTrue = this.state.redirect
-        console.log(`This is 'true'? `, redirectTrue)
+        // console.log(`This is 'true'? `, redirectTrue)
         return (
             // Ternary: if redirectTrue is not 'true', <Search /> else <Redirect />
             !redirectTrue ?
                 <Search
                     // Establishing properties to be passed to the Search component.
-                    newInput = {this.state.city}
-                    handleChange = {this.citySearch}
+                    primaryInput = {this.state.city}
+                    handleChange = {this.primarySearch}
                     submit = {this.setRedirect}
                 /> 
                 : <Redirect to={{
-                    // This format allow me to be more dynamic as to what I can pass through with a Redirect. 
+                    // This format allow me to be more dynamic as to what I can pass through with Redirect. 
                     pathname: '/weather',
                     state: this.state.city
                 }}/> 
