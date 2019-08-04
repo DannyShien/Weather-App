@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+// Import BrowserRouter to use Route
 import {
     BrowserRouter as Router,
     Route,
-    // Link
+
 }   from 'react-router-dom';
 import './App.css';
-// import Navbar from './components/Navbar';
+
+// Importing other components to connect my files.
+import Home from './components/Home';
 import Weather from './components/Weather';
-import About from './About';
-import Home from './Home';
 
 
 class App extends Component {
@@ -16,10 +17,8 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
-                    {/* <Navbar /> */}
-                    {/* <Route path = '/' exact component = {Home} /> */}
-                    {/* <Route path = '/about' component = {About} /> */}
-                    <Route path = '/' component = {Weather} /> 
+                    <Route path = '/' exact component = {Home} />
+                    <Route path = '/weather' component = {Weather} /> 
                 </div>
             </Router>
         );

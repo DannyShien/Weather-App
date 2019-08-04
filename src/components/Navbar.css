@@ -1,0 +1,17 @@
+.navbar {
+    height: 70px;
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    font-size: 36px;
+    font-weight: bold;
+}
+.links {
+    width: 12vw;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+}

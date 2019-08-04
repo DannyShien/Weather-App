@@ -4,189 +4,216 @@
 import React, { Component } from 'react';
 
 // Connecting other components to this component page. 
-import Search from './Search';
+import Navbar from './Navbar';
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
-// import './Weather.css';
+import Search from './Search';
+
 
 // Establishing a class component called Weather. 
 class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            current_weather: null,
+            weatherData: null,
             city: '', 
-            weather: '',
-            main: '', 
-            description: '', 
+            condition: '', 
             temperature: '', 
+            icon: '', 
             humidity: '',
             wind: '',
+            clouds: '',
 
-            forecast_weather: null,
-            forecast_display: [],
+            forecastData: null,
             forecast_timestamp: '',
             forecast_mainTemp: '',
             forecast_minTemp: '', 
             forecast_maxTemp: '', 
-            forecast_humidity: '', 
-            forecast_wind:''
+            forecast_icon: '',
+
+            secondaryCity: ''
         }
     }
 
+    componentDidMount() {
+        this.fetchWeather()
+        this.fetchForecast()
+    }
    
-
     render() {
+        const searchBarStyle = {
+            width: '60vw',
+            display: 'flex',
+            justifyContent: 'space-between'
+        }
+        // console.log(this.props)
         return (
-            <div className = 'weather-container'>
-                <div className='weather'>   
-                    <h1>RainOrShine 2.0</h1>
-                    <div className = 'weather-display'>
-                        <h4>What's the weather today?</h4>
-                        <Search
-                            onSubmit = {this._onSubmit}
-                            newInput = {this.state.city}
-                            handleChange = {this.citySearch}
-                        />
-
-                        {this.showCurrentWeather()}
-                    </div>
+            <>
+                <div style={searchBarStyle}>
+                    <Navbar />
+                    <Search  
+                        secondaryInput={this.state.secondaryCity}
+                        handleChange={this.secondarySearch}
+                        submit={this.secondarySubmit}
+                    />
                 </div>
-                <div className = 'forecast-display'>
-                    <h2 className = 'forecast-title'>3 hr Interval Forecast</h2>
-                    {/* {this._showForecast()} */}
-                </div>
-            </div>
+                <CurrentWeather
+                    city = {this.state.city}
+                    condition = {this.state.condition}
+                    temperature = {this.state.temperature}
+                    icon = {this.state.icon}
+                    humidity = {this.state.humidity}
+                    wind = {this.state.wind}
+                    clouds = {this.state.clouds}
+                /> 
+                {this.state.forecastData ? 
+                    <Forecast 
+                        dates = {this.state.forecast_timestamp}
+                        mains = {this.state.forecast_mainTemp}
+                        // mins = {this.state.forecast_minTemp}
+                        maxs = {this.state.forecast_maxTemp}
+                        icons = {this.state.forecast_icon}
+                    /> 
+                : null}              
+            </>
         );
     }
 
-    // Setting the state for 'city' to be used in the input. 
-    citySearch = (input) => {
-        console.log(input)
+    secondarySearch = (input) => {
         this.setState({
-            city: input
+            secondaryCity: input
         });
-    }
-
-    // When input is submitted, name of city is fetched from API to return weather info. 
-    _onSubmit = (event) => {
-        const searchCity = this.state.city
-        event.preventDefault();
-        // console.log(searchCity);
-        console.log('Input Submitted');
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=dee07fae47d614b4f9cb0a8cd0a2cfeb`)
-            .then(r => {
-                return r.json()
-            })
-            .then(this.getTheWeather)
-            // console.log('Weather Info:', obj);
-                // fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&cnt=16&APPID=0f120aa36b999f92a1be873d99468369`)
-                //     // .catch(err =>{
-                //     //     console.log(err);
-                //     // })
-                //     .then(r => { 
-                //         // console.log(r)
-                //         return r.json()
-                //     })
-                //     .then(obj => {
-                //         // let day = obj.list.map((forecast) => {
-                //         //     return forecast.dt_txt});
-                //         //     console.log(day)
-
-                //         // let day = obj.list.map((date) => {
-                //         //     let singleTimestamp = new Date(date.dt * 1000)
-                //         //     // let timestamp = new Date(day[0] * 1000);
-                //         //     return singleTimestamp});
-                //             // console.log(day)
-
-                //         // let main_temp = obj.list.map((jeff) => {
-                //         //     let temperature = ((jeff.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
-                //         //     return temperature});
-                //             // console.log('hey', main_temp);
-
-                //         // let min_temp = obj.list.map((harry) => {
-                //         //     let temp = ((harry.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
-                //         //     return temp});
-
-                //         // let max_temp = obj.list.map((harry) => {
-                //         //     let temp = ((harry.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
-                //         //     return temp});    
-
-                //         this.setState ({
-                //             forecast_display: [...this.state.forecast_display, {
-                //             forecast_weather: obj.list,
-                //             // forecast_timestamp: day,
-                //             // forecast_mainTemp: main_temp,
-                //             // forecast_minTemp: min_temp, 
-                //             // forecast_maxTemp: max_temp, 
-                //             }]
-                //         })
-                //         // console.log('wow', this.state.forecast_display[0].forecast_mainTemp[0]);
-                //     })
-    }
-                
-
-
-    getTheWeather = (obj) => {
-        console.log(`WEATHER OBJ: `, obj)
-        let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(1);
-        let weather_condition =  obj.weather.map((bob) => {
-            return bob.main
-        });   
-            // console.log(weather_condition)
-        let weather_description = obj.weather.map((bob) => {
-            return bob.description
-        });
-        this.setState ({
-            current_weather: obj,
-            city: obj.name,
-            main: weather_condition,
-            description: weather_description,
-            temperature: current_temp,
-            humidity: obj.main.humidity,
-            wind: obj.wind.speed,
-        })
     }
     
-
-    // checks to see if there is any data, if there is data, render the data.
-    showCurrentWeather = () => {
-        // this.state.current_weather ? 
-        //     <CurrentWeather
-        //         city = {this.state.city}
-        //         weather_condition= {`${this.state.description}`}
-        //         temperature = {this.state.temperature}
-        //         humidity = {this.state.humidity}
-        //         wind = {this.state.wind}
-        //     /> : null
-        if(this.state.current_weather) {
-            return (
-                <CurrentWeather
-                    city = {this.state.city}
-                    weather_condition= {`${this.state.description}`}
-                    temperature = {this.state.temperature}
-                    humidity = {this.state.humidity}
-                    wind = {this.state.wind}
-                /> 
-            )
-        } else {
-            return (null);
-        }
+    secondarySubmit = () => {
+        // event.preventDefault();
+        console.log(`SECONDARY FORM SUBMITTED`)
+        // this.setState({
+        //     secondaryCity: [...secondaryCity]
+        // });
     }
 
-    _showForecast = () => { 
-        if (!this.state.forecast_weather) {
-            return (
-                <Forecast 
-                    threeHourForecast = {this.state.forecast_display}
-                    // timestamp = {`${this.state.forecast_timestamp}`}
-                    // mainTemp = {`${this.state.forecast_mainTemp}`}
-                />
-            )
-        } else {
-            console.log('No data grabbed.')
-            return (null);
-        }
+    // this method takes the input and runs it through the API and is being called in the componentDidMount
+    fetchWeather = () => {
+        console.log(this.props.location.state)
+        const searchCity = this.props.location.state
+        const owKey = `${process.env.REACT_APP_WEATHER_API}`
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=${owKey}`)
+        .then(r => {return r.json()})
+        .catch(err => {console.log(err)})
+        .then(this.getTheWeather)
+    }
+    // this method is the next step in the promise chain
+    getTheWeather = (obj) => {
+        // console.log(obj)
+        // NEED A CONDITION TO RENDER NOTHING FOR "WEATHER PAGE" IF NO INPUT WAS ENTERED
+        let condition = obj.weather.map((condition) => {
+            return condition.description
+        });
+        let current_temp = ((obj.main.temp - 273.15) * 9/ 5 + 32).toFixed(0);
+        let iconArr = obj.weather.map((code) => {
+            let theIcon = code.icon
+                return theIcon
+        })
+        let humidity = obj.main.humidity
+        let wind = obj.wind.speed
+        let clouds = obj.clouds.all
+        
+        this.setState ({
+            weatherData: obj,
+            city: obj.name,
+            condition: condition,
+            temperature: current_temp,
+            humidity: humidity,
+            wind: wind,
+            clouds: clouds,
+            icon: iconArr,
+            newCity: obj.name
+        })
+    }
+
+    // this method takes the same input value and runs it through another API for the forecast
+    fetchForecast = () => {
+        const searchCity = this.props.location.state
+        const owKey = `${process.env.REACT_APP_WEATHER_API}`
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${searchCity}&cnt=16&APPID=${owKey}&units=imperial`)
+            .then(r => {return r.json()})
+            .catch(err => {console.log(err)})
+            .then(this.getForecast)
+    }
+
+    convertDate = (day) => {
+        console.log(`2. DT_TXT IS GRABBED FROM OBJ: `, day)
+        let d = new Date(day)
+        const weekday = new Array(7)
+            weekday[0] = "Sun";
+            weekday[1] = "Mon";
+            weekday[2] = "Tues";
+            weekday[3] = "Wed";
+            weekday[4] = "Thurs";
+            weekday[5] = "Fri";
+            weekday[6] = "Sat";
+    
+        let n = weekday[d.getDay()];
+        console.log(`3. DT_TXT IS PASSED IN CONVERT-DATE FUNCTION: `, n)
+        return n
+    };
+
+    // this method is the next step in the promise chain in the fetchForecast function
+    getForecast = (obj) => {
+        let forecastList = obj.list
+        let forecastArray = forecastList.map((forecast) => {
+            return forecast
+        });
+
+        let daysArray = forecastList.map((dateObj) => {
+            let theDate = dateObj
+            console.log(`1. STARTS WITH OBJECT: `, theDate)
+            let date = this.convertDate(dateObj.dt_txt)
+            console.log(`4. DT_TXT IS RETURNED: `, date)
+            return date
+        });
+
+        let mainTemp = forecastList.map((t) => {
+            let main =((t.main.temp))
+            // console.log(main)
+            return main
+        })
+
+        // let minTemp = forecastList.map((t) => {
+        //     let min = ((t.main.temp_min - 273.15) * 9/5 + 32).toFixed(1);
+        //     return min
+        // });
+        // let maxTemp = forecastList.map((t) => {
+        //     let max = ((t.main.temp_max))
+        //     // let max = ((t.main.temp_max - 273.15) * 9/5 + 32).toFixed(1);
+        //     return max
+        // });    
+        // this code block returns an array of arrays
+        let IconArrays = forecastList.map((i) => {
+            let iconArr = i.weather
+            let icon = iconArr.map((iconObj) => {
+                let theIcon = iconObj.icon
+
+                return theIcon
+            })
+            return icon
+        })
+        // this code block returns the arrays, as strings, that's in the array 
+        let iconsArr = IconArrays.map((icons) => {
+            let icon = icons[0]
+            return icon
+        })
+        // console.log(iconsArr)
+
+        this.setState ({
+            forecastData: forecastArray,
+            forecast_timestamp: daysArray,
+            forecast_mainTemp: mainTemp,
+            // forecast_minTemp: minTemp, 
+            // forecast_maxTemp: maxTemp, 
+            forecast_icon: iconsArr
+        })
     }
 }
 

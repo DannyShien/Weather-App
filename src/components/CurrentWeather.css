@@ -1,0 +1,28 @@
+.current-weather {
+    display: flex;
+    justify-content: space-evenly;
+    border: 2px solid red;
+    height: 30vh;
+    width: 60vw;
+}
+.left-display {
+    display: flex;
+    flex-direction: column;
+}
+.weather-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+}
+h2 {
+    font-size: 36px;
+    font-weight: 800;
+}
+li {
+    list-style-type: none;
+    font-size: 22px;
+    text-align: center;
+    margin: 5px;
+}

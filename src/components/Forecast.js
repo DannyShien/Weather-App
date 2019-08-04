@@ -1,55 +1,76 @@
 import React from 'react';
+import './Forecast.css';
 
-const convertDate = (day) => {
-    let d = new Date(day);
-    const weekday = new Array(7);
-        weekday[0] = "Sun";
-        weekday[1] = "Mon";
-        weekday[2] = "Tues";
-        weekday[3] = "Wed";
-        weekday[4] = "Thurs";
-        weekday[5] = "Fri";
-        weekday[6] = "Sat";
-
-    let n = weekday[d.getDay()];
-    // console.log(n)
-    return n
-};
-
-
-const Forecast = (props) => {
-
-    const showForecast = props.threeHourForecast.map((natalie) => { 
-
-        const finalDisplayForecast = natalie.forecast_weather.map((tran)=> {
-            let i = 0;
-            if([i] <= (i === 3)) {
-                console.log([i]);
-                let forecast_day = convertDate((tran.dt_txt));
-                let forecast_temp = ((tran.main.temp - 273.15) * 9/5 +32).toFixed(1);
-                let forecast_tempMin = ((tran.main.temp_min - 273.15) * 9/5 +32).toFixed(1);
-                let forecast_tempMax = ((tran.main.temp_max - 273.15) * 9/5 +32).toFixed(1);
-                return ( 
-                    <div className = 'forecast'>
-                        <div><strong>{forecast_day}</strong></div>
-                        <div>{tran.dt_txt}</div>
-                        <div>{`${forecast_temp}° F`}</div>
-                        <div>{`L/${forecast_tempMin}°`}</div>
-                        <div>{`H/${forecast_tempMax}°`}</div>
-                    </div>   
-                )       
-            } else {
-                return 
-            }
-        });
-        return finalDisplayForecast
+const Forecast = ({dates, mains, mins, maxs, icons}) => {
+    let weekDay = dates.map((days, i) => {
+        let day = days
+        return (
+            <div className='timeframe' key={i}>
+                {day}
+            </div>
+        )
+    })              
+    console.log(`Forecast.js icons: `, icons)
+    let icon = icons.map((iconObj, i) => {
+        // console.log(`new icon: `, iconObj)
+        let icon = iconObj
+        return (
+            <div className='icon' key={i}>
+                <img src={`https://openweathermap.org/img/w/${icon}.png`} alt='forecast weather icons'/>
+            </div>
+        )
     })
+
+    let main = mains.map((mainObj, i) => {
+        let main = mainObj
+        return (
+            <div className='temp' key={i}>
+                {main}
+            </div>
+        )
+    })
+
+    // let max = maxs.map((maxObj, i) => {
+    //     // let max = maxObj
+    //     return (
+    //         <div key={i}>
+    //             {/* {`${max} °`} */}
+    //             {max}
+    //         </div>
+    //     )
+    // })
+
+    // let min = mins.map((minObj, i) => {
+    //     let min = minObj
+    //     return (
+    //         <div key={i}>
+    //             {/* {`${min} °F`} */}
+    //             {min}
+    //         </div>
+    //     )
+    // }); 
+
     return (
-        <div className = 'pos'>
-            {showForecast}
+        <div className='forecast-display'>
+            <div className='forecast'>
+                {weekDay}
+            </div>
+            <div className='forecast'>
+                {icon}
+            </div>
+            <div className='forecast'>
+                {main}
+            </div>
+
+
+            {/* <div className='forecast'>
+                {min}
+            </div>
+            <div className='forecast'>
+                {max}
+            </div> */}
         </div>
     )
-
 }
 
 export default Forecast;
