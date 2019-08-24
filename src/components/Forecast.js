@@ -1,21 +1,30 @@
 import React from 'react';
 import './Forecast.css';
 
-const Forecast = ({dates, mains, mins, maxs, icons}) => {
-    let weekDay = dates.map((days, i) => {
-        let day = days
+const Forecast = ({dates, times, mains, mins, maxs, icons}) => {
+    let weekDay = dates.map((timestamp, i) => {
+        let day = timestamp[0]
+        // console.log(day)
+        let time = timestamp[1]
+        // console.log(time)
         return (
-            <div className='timeframe' key={i}>
+            <div className='timestamp' key={i}>
                 {day}
+                {time}
             </div>
         )
     })              
+    // console.log(`Forecast.js times: `, times)
+    // let time  = times.map((timeArr, i) => {
+    //     console.log(`TIME: `, timeArr)
+    // })
+
     console.log(`Forecast.js icons: `, icons)
-    let icon = icons.map((iconObj, i) => {
-        // console.log(`new icon: `, iconObj)
-        let icon = iconObj
+    let icon = icons.map((iconArr, i) => {
+        // console.log(`new icon: `, iconArr)
+        let icon = iconArr
         return (
-            <div className='icon' key={i}>
+            <div key={i}>
                 <img src={`https://openweathermap.org/img/w/${icon}.png`} alt='forecast weather icons'/>
             </div>
         )
@@ -24,7 +33,7 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
     let main = mains.map((mainObj, i) => {
         let main = mainObj
         return (
-            <div className='temp' key={i}>
+            <div key={i}>
                 {main}
             </div>
         )

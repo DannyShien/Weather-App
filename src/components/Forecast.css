@@ -27,4 +27,9 @@
     /* outline: solid 1px green; */
     /* width: 130vh; */
 }
-
+.timestamp.text {
+    display: flex;
+    flex-direction: column;
+    height: 9vh;
+    background-color: lightgoldenrodyellow;
+}

@@ -3,11 +3,12 @@ import './Search.css'
 
 const Search = (props) => { 
     console.log('SEARCH.JS ', props)
+    
     return (
         <form 
             className = 'search-form center'
             onSubmit={(event) => {
-                console.log(`I'M IN THE FORM`, event)
+                console.log(`FORM SUBMITTED`)
                 event.preventDefault();
                 props.submit(event)
             }} 
@@ -20,12 +21,10 @@ const Search = (props) => {
                 onChange = {(e) => {
                     console.log(e.target.value)
                     props.handleChange(e.target.value)
-                    // props.handleChange(e.target.name)
                 }}
                 name='city'
-                // name='secondaryCity'
                 value = {props.primaryInput} 
-                value = {props.secondaryInput}
+                // value = {props.secondaryInput}
             />
             <button 
                 className = 'btn' 
