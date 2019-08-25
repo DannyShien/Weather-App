@@ -2,7 +2,7 @@ import React from 'react';
 import './Forecast.css';
 
 const Forecast = ({dates, mains, mins, maxs, icons}) => {
-    let weekDay = dates.map((timestamp, i) => {
+    let timeInterval = dates.map((timestamp, i) => {
         // let day = timestamp[0]
         let time = timestamp[1]
         return (
@@ -11,7 +11,14 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
                 {time}
             </div>
         )
-    })              
+    })    
+    
+    let weekday = dates.map((dayNow, i) => {
+        let day = dayNow[0]
+        return day
+    })
+    console.log(weekday[0])
+    let today = weekday[0]
 
     let icon = icons.map((iconArr, i) => {
         let icon = iconArr
@@ -26,7 +33,7 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
         let main = mainObj
         return (
             <div key={i}>
-                {main}
+                {`${main}°`}
             </div>
         )
     })
@@ -52,8 +59,11 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
 
     return (
         <div className='forecast-display'>
+            <div className='day'>
+                <p><strong>TODAY {today}</strong></p>
+            </div>
             <div className='forecast'>
-                {weekDay}
+                {timeInterval}
             </div>
             <div className='forecast'>
                 {icon}

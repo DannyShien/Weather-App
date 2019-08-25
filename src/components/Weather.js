@@ -227,7 +227,7 @@ class Weather extends Component {
         });
 
         let mainTemp = forecastList.map((t) => {
-            let main =((t.main.temp))
+            let main =((t.main.temp)).toFixed();
             // console.log(main)
             return main
         })

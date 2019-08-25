@@ -13,7 +13,7 @@ const CurrentWeather = ({city, secondaryCity, condition, temperature, icon, humi
                     <li>{condition}</li>
                 </div>
                 <div>
-                    <li>{`${temperature}°F`}</li>
+                    <li>{`${temperature}°`}</li>
                 </div>
             </div>
             <div className='right-display'>
