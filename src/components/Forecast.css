@@ -19,17 +19,10 @@
     flex: 1;
     justify-content: center;
 }
-.forecast:first-child {
-    /* outline: solid 1px red; */
-    /* width: 130vh; */
-}
-.forecast:last-child {
-    /* outline: solid 1px green; */
-    /* width: 130vh; */
-}
-.timestamp.text {
+/* .timestamp {
     display: flex;
     flex-direction: column;
     height: 9vh;
+    width: 20vw;
     background-color: lightgoldenrodyellow;
-}
+} */

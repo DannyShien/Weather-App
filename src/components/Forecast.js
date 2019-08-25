@@ -1,27 +1,19 @@
 import React from 'react';
 import './Forecast.css';
 
-const Forecast = ({dates, times, mains, mins, maxs, icons}) => {
+const Forecast = ({dates, mains, mins, maxs, icons}) => {
     let weekDay = dates.map((timestamp, i) => {
-        let day = timestamp[0]
-        // console.log(day)
+        // let day = timestamp[0]
         let time = timestamp[1]
-        // console.log(time)
         return (
             <div className='timestamp' key={i}>
-                {day}
+                {/* {day} */}
                 {time}
             </div>
         )
     })              
-    // console.log(`Forecast.js times: `, times)
-    // let time  = times.map((timeArr, i) => {
-    //     console.log(`TIME: `, timeArr)
-    // })
 
-    console.log(`Forecast.js icons: `, icons)
     let icon = icons.map((iconArr, i) => {
-        // console.log(`new icon: `, iconArr)
         let icon = iconArr
         return (
             <div key={i}>
@@ -48,7 +40,6 @@ const Forecast = ({dates, times, mains, mins, maxs, icons}) => {
     //         </div>
     //     )
     // })
-
     // let min = mins.map((minObj, i) => {
     //     let min = minObj
     //     return (
@@ -70,8 +61,6 @@ const Forecast = ({dates, times, mains, mins, maxs, icons}) => {
             <div className='forecast'>
                 {main}
             </div>
-
-
             {/* <div className='forecast'>
                 {min}
             </div>

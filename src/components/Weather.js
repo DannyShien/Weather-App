@@ -25,8 +25,7 @@ class Weather extends Component {
             clouds: '',
 
             forecastData: null,
-            forecast_day: '',
-            // forecast_time: '',
+            forecast_time: '',
             forecast_mainTemp: '',
             forecast_minTemp: '', 
             forecast_maxTemp: '', 
@@ -47,7 +46,6 @@ class Weather extends Component {
             display: 'flex',
             justifyContent: 'space-between'
         }
-        // console.log(this.props)
         return (
             <>
                 <div style={searchBarStyle}>
@@ -71,8 +69,7 @@ class Weather extends Component {
                 /> 
                 {this.state.forecastData ? 
                     <Forecast 
-                        dates = {this.state.forecast_day}
-                        // times = {this.state.forecast_time}
+                        dates = {this.state.forecast_time}
                         mains = {this.state.forecast_mainTemp}
                         // mins = {this.state.forecast_minTemp}
                         maxs = {this.state.forecast_maxTemp}
@@ -201,14 +198,14 @@ class Weather extends Component {
         let n = weekday[d.getDay()];
         console.log(`3. DT_TXT IS PASSED IN CONVERT-DATE FUNCTION: `, n)
 
-        let t = new Date(day)
-        let hour =  t.getHours(); 
-        let minute = t.getMinutes(); 
-        let second = t.getSeconds();
-        let newTime = hour + `:` + minute + `:` + second;
-        console.log(`4. TIME IS CONVERTED: `, newTime)
+        let hour =  d.getHours();
+        let AmPm = hour >= 12 ? 'pm' : 'am'
+        hour = hour % 12;
+        hour = hour ? hour : 12
+        let strTime = hour + AmPm;
+        console.log(`4. TIME IS CONVERTED: `, strTime)
 
-        let timestamp = [n, newTime]
+        let timestamp = [n, strTime]
         return timestamp
     };
 
@@ -228,18 +225,6 @@ class Weather extends Component {
             console.log(`5. CONVERTED DATE AND TIME IS RETURNED: `, date)
             return date
         });
-
-        // let timeArray = forecastList.map((time) => {
-        //     let theTime = time.dt
-        //     console.log(`FORECAST TIME: `, this.convertDate(time.dt))
-        //     // let t = new Date()
-        //     // let hour =  t.getHours(); 
-        //     // let minute = t.getMinutes(); 
-        //     // let second = t.getSeconds();
-        //     // let newTime = hour + `:` + minute + `:` + second;
-        //     // console.log(newTime)
-        //     // return newTime
-        // })
 
         let mainTemp = forecastList.map((t) => {
             let main =((t.main.temp))
@@ -275,8 +260,7 @@ class Weather extends Component {
 
         this.setState ({
             forecastData: forecastArray,
-            forecast_day: daysArray,
-            // forecast_time: timeArray,
+            forecast_time: daysArray,
             forecast_mainTemp: mainTemp,
             // forecast_minTemp: minTemp, 
             // forecast_maxTemp: maxTemp, 
