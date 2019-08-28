@@ -25,7 +25,7 @@ class Weather extends Component {
             clouds: '',
 
             forecastData: null,
-            forecast_timestamp: '',
+            forecast_time: '',
             forecast_mainTemp: '',
             forecast_minTemp: '', 
             forecast_maxTemp: '', 
@@ -36,7 +36,7 @@ class Weather extends Component {
     }
 
     componentDidMount() {
-        this.fetchWeather()
+        this.primaryFetchWeather()
         this.fetchForecast()
     }
    
@@ -46,7 +46,6 @@ class Weather extends Component {
             display: 'flex',
             justifyContent: 'space-between'
         }
-        // console.log(this.props)
         return (
             <>
                 <div style={searchBarStyle}>
@@ -54,7 +53,8 @@ class Weather extends Component {
                     <Search  
                         secondaryInput={this.state.secondaryCity}
                         handleChange={this.secondarySearch}
-                        submit={this.secondarySubmit}
+                        // submit={this.secondarySubmit}
+                        submit = {this.secondarySearch}
                     />
                 </div>
                 <CurrentWeather
@@ -65,10 +65,11 @@ class Weather extends Component {
                     humidity = {this.state.humidity}
                     wind = {this.state.wind}
                     clouds = {this.state.clouds}
+                    secondaryCity = {this.state.secondaryCity}
                 /> 
                 {this.state.forecastData ? 
                     <Forecast 
-                        dates = {this.state.forecast_timestamp}
+                        dates = {this.state.forecast_time}
                         mains = {this.state.forecast_mainTemp}
                         // mins = {this.state.forecast_minTemp}
                         maxs = {this.state.forecast_maxTemp}
@@ -80,32 +81,73 @@ class Weather extends Component {
     }
 
     secondarySearch = (input) => {
+        console.log(`SECONDARY FORM SUBMITTED`)
         this.setState({
             secondaryCity: input
+            // city: input
         });
     }
     
     secondarySubmit = () => {
         // event.preventDefault();
-        console.log(`SECONDARY FORM SUBMITTED`)
-        // this.setState({
-        //     secondaryCity: [...secondaryCity]
-        // });
+        
     }
 
     // this method takes the input and runs it through the API and is being called in the componentDidMount
-    fetchWeather = () => {
-        console.log(this.props.location.state)
-        const searchCity = this.props.location.state
+    primaryFetchWeather = () => {
+        console.log(`PRIMARY SEARCH: `, this.props.location.state)
+        const primarySearch = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&type=accurate&APPID=${owKey}`)
-        .then(r => {return r.json()})
-        .catch(err => {console.log(err)})
-        .then(this.getTheWeather)
+        // const searchCity = this.props.location.state
+        // (primarySearch ? 
+        //     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${primarySearch}&type=accurate&APPID=${owKey}`)
+        //         .then(r => {return r.json()})
+        //         .catch(err => {console.log(err)})
+        //         .then(this.getTheWeather)
+        // : 
+        // secondarySearch ?
+        //     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${secondarySearch}&type=accurate&APPID=${owKey}`)
+        //         .then(r => {return r.json()})
+        //         .catch(err => {console.log(err)})
+        //         .then(this.getTheWeather)
+        // : null)
+            
+        
+        // if (this.props.location.state) {
+        //     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${primarySearch}&type=accurate&APPID=${owKey}`)
+        //     .then(r => {return r.json()})
+        //     .catch(err => {console.log(err)})
+        //     .then(this.getTheWeather)
+        // } else if (this.state.secondaryCity) {
+        //     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${secondarySearch}&type=accurate&APPID=${owKey}`)
+        //     .then(r => {return r.json()})
+        //     .catch(err => {console.log(err)})
+        //     .then(this.getTheWeather)
+        // }
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${primarySearch}&type=accurate&APPID=${owKey}`)
+            .then(r => {return r.json()})
+            .catch(err => {console.log(err)})
+            .then(this.getTheWeather)
     }
-    // this method is the next step in the promise chain
+
+    secondaryFetch = () => {
+        console.log(`SECONDARY FETCH: `, this.state.secondaryCity)
+        if (this.state.secondaryCity) {
+            const secondarySearch = this.state.secondaryCity
+            // console.log(`SECONDARY SEARCH: `, this.state.secondaryCity)
+            const owKey = `${process.env.REACT_APP_WEATHER_API}`
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${secondarySearch}&type=accurate&APPID=${owKey}`)
+                .then(r => {return r.json()})
+                .catch(err => {console.log(err)})
+                .then(this.getTheWeather)
+        } else {
+            console.log(`NO DATA TO FETCH!`)
+        }
+    }
+
+    // This method is the next step in the promise chain
     getTheWeather = (obj) => {
-        // console.log(obj)
+        // console.log(`WEATHER INFO: `, obj)
         // NEED A CONDITION TO RENDER NOTHING FOR "WEATHER PAGE" IF NO INPUT WAS ENTERED
         let condition = obj.weather.map((condition) => {
             return condition.description
@@ -127,8 +169,8 @@ class Weather extends Component {
             humidity: humidity,
             wind: wind,
             clouds: clouds,
-            icon: iconArr,
-            newCity: obj.name
+            icon: iconArr
+            // secondaryCity: obj.name
         })
     }
 
@@ -152,15 +194,25 @@ class Weather extends Component {
             weekday[3] = "Wed";
             weekday[4] = "Thurs";
             weekday[5] = "Fri";
-            weekday[6] = "Sat";
-    
+            weekday[6] = "Sat";    
         let n = weekday[d.getDay()];
         console.log(`3. DT_TXT IS PASSED IN CONVERT-DATE FUNCTION: `, n)
-        return n
+
+        let hour =  d.getHours();
+        let AmPm = hour >= 12 ? 'pm' : 'am'
+        hour = hour % 12;
+        hour = hour ? hour : 12
+        let strTime = hour + AmPm;
+        console.log(`4. TIME IS CONVERTED: `, strTime)
+
+        let timestamp = [n, strTime]
+        return timestamp
     };
+
 
     // this method is the next step in the promise chain in the fetchForecast function
     getForecast = (obj) => {
+        console.log(`FORCAST OBJECT: `, obj)
         let forecastList = obj.list
         let forecastArray = forecastList.map((forecast) => {
             return forecast
@@ -170,12 +222,12 @@ class Weather extends Component {
             let theDate = dateObj
             console.log(`1. STARTS WITH OBJECT: `, theDate)
             let date = this.convertDate(dateObj.dt_txt)
-            console.log(`4. DT_TXT IS RETURNED: `, date)
+            console.log(`5. CONVERTED DATE AND TIME IS RETURNED: `, date)
             return date
         });
 
         let mainTemp = forecastList.map((t) => {
-            let main =((t.main.temp))
+            let main =((t.main.temp)).toFixed();
             // console.log(main)
             return main
         })
@@ -208,7 +260,7 @@ class Weather extends Component {
 
         this.setState ({
             forecastData: forecastArray,
-            forecast_timestamp: daysArray,
+            forecast_time: daysArray,
             forecast_mainTemp: mainTemp,
             // forecast_minTemp: minTemp, 
             // forecast_maxTemp: maxTemp, 

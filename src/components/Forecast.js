@@ -2,20 +2,28 @@ import React from 'react';
 import './Forecast.css';
 
 const Forecast = ({dates, mains, mins, maxs, icons}) => {
-    let weekDay = dates.map((days, i) => {
-        let day = days
+    let timeInterval = dates.map((timestamp, i) => {
+        // let day = timestamp[0]
+        let time = timestamp[1]
         return (
-            <div className='timeframe' key={i}>
-                {day}
+            <div className='timestamp' key={i}>
+                {/* {day} */}
+                {time}
             </div>
         )
-    })              
-    console.log(`Forecast.js icons: `, icons)
-    let icon = icons.map((iconObj, i) => {
-        // console.log(`new icon: `, iconObj)
-        let icon = iconObj
+    })    
+    
+    let weekday = dates.map((dayNow, i) => {
+        let day = dayNow[0]
+        return day
+    })
+    console.log(weekday[0])
+    let today = weekday[0]
+
+    let icon = icons.map((iconArr, i) => {
+        let icon = iconArr
         return (
-            <div className='icon' key={i}>
+            <div key={i}>
                 <img src={`https://openweathermap.org/img/w/${icon}.png`} alt='forecast weather icons'/>
             </div>
         )
@@ -24,8 +32,8 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
     let main = mains.map((mainObj, i) => {
         let main = mainObj
         return (
-            <div className='temp' key={i}>
-                {main}
+            <div key={i}>
+                {`${main}°`}
             </div>
         )
     })
@@ -39,7 +47,6 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
     //         </div>
     //     )
     // })
-
     // let min = mins.map((minObj, i) => {
     //     let min = minObj
     //     return (
@@ -52,8 +59,11 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
 
     return (
         <div className='forecast-display'>
+            <div className='day'>
+                <p><strong>TODAY {today}</strong></p>
+            </div>
             <div className='forecast'>
-                {weekDay}
+                {timeInterval}
             </div>
             <div className='forecast'>
                 {icon}
@@ -61,8 +71,6 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
             <div className='forecast'>
                 {main}
             </div>
-
-
             {/* <div className='forecast'>
                 {min}
             </div>

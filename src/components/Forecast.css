@@ -8,23 +8,26 @@
     margin-top: 10px;
     padding: 5px 0;
 }
+.day {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 5px; 
+    margin-left: 10px;
+    padding-left: 10px;  
+    height: 4vh;
+    width: 12vw;
+}
+.day p {
+    font-size: 14px;
+}
 .forecast {
     display: flex;
     width: 130vw;
     color: white;
-    background-color: lightskyblue;    
+    background-color: lightskyblue; 
 }
 .forecast div {
     display: flex;
     flex: 1;
     justify-content: center;
 }
-.forecast:first-child {
-    /* outline: solid 1px red; */
-    /* width: 130vh; */
-}
-.forecast:last-child {
-    /* outline: solid 1px green; */
-    /* width: 130vh; */
-}
-
