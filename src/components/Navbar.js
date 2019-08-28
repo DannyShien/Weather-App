@@ -7,7 +7,7 @@ import Search from './Search';
 // Functional componenet that just returns JSX for a navbar.
 const Navbar = () => {
     const searchBarStyle = {
-        width: '50vw',
+        // width: '50vw',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
