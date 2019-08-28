@@ -7,7 +7,7 @@ const CurrentWeather = ({city, secondaryCity, condition, temperature, icon, humi
     return (
         <div className='current-weather'>
             <div className='left-display'>
-                <div className = 'weather-info'>
+                <div>
                     {/* {} and that secific prop allows me to pass that information directly where I want it. */}
                     <h2>{city}</h2>
                     <li>{condition}</li>

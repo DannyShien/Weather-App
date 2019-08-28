@@ -10,14 +10,12 @@
 }
 .day {
     display: flex;
-    /* justify-content: center;   */
     align-items: center; 
     margin-bottom: 5px; 
     margin-left: 10px;
     padding-left: 10px;  
     height: 4vh;
     width: 12vw;
-    /* background-color: white; */
 }
 .day p {
     font-size: 14px;
@@ -32,8 +30,4 @@
     display: flex;
     flex: 1;
     justify-content: center;
-}
-.timestamp {
-    margin: 0 10px;
-    /* border-top: 1px solid white;    */
 }
