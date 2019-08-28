@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import Navbar from './Navbar';
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
-import Search from './Search';
+// import Search from './Search';
 
 
 // Establishing a class component called Weather. 
@@ -41,21 +41,21 @@ class Weather extends Component {
     }
    
     render() {
-        const searchBarStyle = {
-            width: '60vw',
-            display: 'flex',
-            justifyContent: 'space-between'
-        }
+        // const searchBarStyle = {
+        //     width: '45vw',
+        //     display: 'flex',
+        //     justifyContent: 'space-between'
+        // }
         return (
             <>
-                <div style={searchBarStyle}>
+                <div>
                     <Navbar />
-                    <Search  
+                    {/* <Search  
                         secondaryInput={this.state.secondaryCity}
                         handleChange={this.secondarySearch}
                         // submit={this.secondarySubmit}
                         submit = {this.secondarySearch}
-                    />
+                    /> */}
                 </div>
                 <CurrentWeather
                     city = {this.state.city}
