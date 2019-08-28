@@ -1,5 +1,4 @@
 .forecast-display {
-    background-color: lightskyblue;
     display: flex;
     flex-direction: column ;
     justify-content: center;
@@ -7,6 +6,8 @@
     overflow: auto;
     margin-top: 10px;
     padding: 5px 0;
+    background-color: lightskyblue;
+    border: 3px solid navy;
 }
 .day {
     display: flex;
