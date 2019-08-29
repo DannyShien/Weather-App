@@ -51,7 +51,7 @@ class Home extends Component {
             !redirectTrue ?
                 <Search
                     // Establishing properties to be passed to the Search component.
-                    primaryInput = {this.state.city}
+                    Input = {this.state.city}
                     handleChange = {this.primarySearch}
                     submit = {this.setRedirect}
                 /> 

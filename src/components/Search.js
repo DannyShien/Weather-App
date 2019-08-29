@@ -23,8 +23,7 @@ const Search = (props) => {
                     props.handleChange(e.target.value)
                 }}
                 name='city'
-                value = {props.primaryInput} 
-                // value = {props.secondaryInput}
+                value = {props.Input} 
             />
             <button 
                 className = 'btn' 
