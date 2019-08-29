@@ -19,4 +19,4 @@ This application is built just for fun. I want to continue practicing and unders
 - Saving favorite locations. 
 
 ## Screenshots
-![ROR_cover](ROR_cover.png)
+<img width="735" alt="ROR_cover" src="https://user-images.githubusercontent.com/29678190/63978407-42663880-ca84-11e9-9969-f72a0c526312.png">
