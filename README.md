@@ -20,3 +20,5 @@ This application is built just for fun. I want to continue practicing and unders
 
 ## Screenshots
 <img width="735" alt="ROR_cover" src="https://user-images.githubusercontent.com/29678190/63978407-42663880-ca84-11e9-9969-f72a0c526312.png">
+
+<img width="735" alt="ROR_display" src="https://user-images.githubusercontent.com/29678190/63978481-6b86c900-ca84-11e9-9d6c-3763d7ec95e8.png">
