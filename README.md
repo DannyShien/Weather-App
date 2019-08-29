@@ -19,3 +19,4 @@ This application is built just for fun. I want to continue practicing and unders
 - Saving favorite locations. 
 
 ## Screenshots
+![ROR_cover](ROR_cover.png)
