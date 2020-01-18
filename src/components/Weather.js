@@ -29,9 +29,7 @@ class Weather extends Component {
             forecast_mainTemp: '',
             forecast_minTemp: '', 
             forecast_maxTemp: '', 
-            forecast_icon: '',
-
-            secondaryCity: ''
+            forecast_icon: ''
         }
     }
 
@@ -46,6 +44,7 @@ class Weather extends Component {
         //     display: 'flex',
         //     justifyContent: 'space-between'
         // }
+        console.log(`FIRST RENDER`)
         return (
             <>
                 <div>
@@ -80,18 +79,18 @@ class Weather extends Component {
         );
     }
 
-    secondarySearch = (input) => {
-        console.log(`SECONDARY FORM SUBMITTED`)
-        this.setState({
-            secondaryCity: input
-            // city: input
-        });
-    }
+    // secondarySearch = (input) => {
+    //     console.log(`SECONDARY FORM SUBMITTED`)
+    //     this.setState({
+    //         secondaryCity: input
+    //         // city: input
+    //     });
+    // }
     
-    secondarySubmit = () => {
-        // event.preventDefault();
+    // secondarySubmit = () => {
+    //     // event.preventDefault();
         
-    }
+    // }
 
     // this method takes the input and runs it through the API and is being called in the componentDidMount
     primaryFetchWeather = () => {
@@ -170,7 +169,6 @@ class Weather extends Component {
             wind: wind,
             clouds: clouds,
             icon: iconArr
-            // secondaryCity: obj.name
         })
     }
 
