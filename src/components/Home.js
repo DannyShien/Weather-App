@@ -8,7 +8,7 @@ class Home extends Component {
     constructor(props) {
         super(props); 
         this.state = {
-            city: '',
+            query: '',
             redirect: false
         }
     }
@@ -28,9 +28,9 @@ class Home extends Component {
     }
 
     // Setting the state for 'city' to be used in the input. 
-    primarySearch = (input) => {
+    updateSearch = (event) => {
         this.setState({
-            city: input
+            [event.target.name] : event.target.value
         });
     }
 
@@ -39,26 +39,34 @@ class Home extends Component {
         event.preventDefault();
         this.setState({
             redirect: true
+        }, () => {
+            this.setState({
+                query: ''
+            })
         })
     }
-
+    reset = () => {
+        this.setState({
+            query: ''
+        })
+    }
     
     passSearch = () => {
         const redirectTrue = this.state.redirect
-        // console.log(`This is 'true'? `, redirectTrue)
+
         return (
             // Ternary: if redirectTrue is not 'true', <Search /> else <Redirect />
             !redirectTrue ?
                 <Search
                     // Establishing properties to be passed to the Search component.
-                    Input = {this.state.city}
-                    handleChange = {this.primarySearch}
+                    input = {this.state.query}
+                    updateSearch= {this.updateSearch}
                     submit = {this.setRedirect}
                 /> 
                 : <Redirect to={{
                     // This format allow me to be more dynamic as to what I can pass through with Redirect. 
                     pathname: '/weather',
-                    state: this.state.city
+                    state: this.state.query
                 }}/> 
                 
         )
