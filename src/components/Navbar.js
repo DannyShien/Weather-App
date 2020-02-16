@@ -40,7 +40,8 @@ class Navbar extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        this.props.fetch(this.state.query)
+        this.props.weather(this.state.query)
+        this.props.forecast(this.state.query)
         this.reset()
     }
     reset = () => {

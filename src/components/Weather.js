@@ -46,7 +46,10 @@ class Weather extends Component {
         // }
         return (
             <>
-                <Navbar fetch={this.primaryFetchWeather} />
+                <Navbar 
+                    weather={this.primaryFetchWeather} 
+                    forecast={this.fetchForecast}    
+                />
 
                 <CurrentWeather
                     city = {this.state.city}
@@ -75,15 +78,15 @@ class Weather extends Component {
     primaryFetchWeather = (query) => {
         const primarySearch = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
-        let search1 = `https://api.openweathermap.org/data/2.5/weather?q=${primarySearch}&type=accurate&APPID=${owKey}`
-        let search2 = `https://api.openweathermap.org/data/2.5/weather?q=${query}&type=accurate&APPID=${owKey}`
+        let weather1 = `https://api.openweathermap.org/data/2.5/weather?q=${primarySearch}&type=accurate&APPID=${owKey}`
+        let weather2 = `https://api.openweathermap.org/data/2.5/weather?q=${query}&type=accurate&APPID=${owKey}`
         {(query) ?
-            fetch(search2)
+            fetch(weather2)
                 .then(r => {return r.json()})
                 .catch(err => {console.log(err)})
                 .then(this.getTheWeather)
                 :
-            fetch(search1)
+            fetch(weather1)
                 .then(r => {return r.json()})
                 .catch(err => {console.log(err)})
                 .then(this.getTheWeather)
@@ -118,13 +121,22 @@ class Weather extends Component {
     }
 
     // this method takes the same input value and runs it through another API for the forecast
-    fetchForecast = () => {
-        const searchCity = this.props.location.state
+    fetchForecast = (query) => {
+        const forecastSearch = this.props.location.state
         const owKey = `${process.env.REACT_APP_WEATHER_API}`
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${searchCity}&cnt=16&APPID=${owKey}&units=imperial`)
-            .then(r => {return r.json()})
-            .catch(err => {console.log(err)})
-            .then(this.getForecast)
+        const forecast1 = `https://api.openweathermap.org/data/2.5/forecast?q=${forecastSearch}&cnt=16&APPID=${owKey}&units=imperial`
+        const forecast2 = `https://api.openweathermap.org/data/2.5/forecast?q=${query}&cnt=16&APPID=${owKey}&units=imperial`
+        {(query) ? 
+            fetch(forecast2)
+                .then(r => {return r.json()})
+                .catch(err => {console.log(err)})
+                .then(this.getForecast)
+                :
+            fetch(forecast1)
+                .then(r => {return r.json()})
+                .catch(err => {console.log(err)})
+                .then(this.getForecast)    
+        }
     }
 
     convertDate = (day) => {
@@ -163,7 +175,7 @@ class Weather extends Component {
         let daysArray = forecastList.map((dateObj) => {
             let theDate = dateObj
             // console.log(`1. STARTS WITH OBJECT: `, theDate)
-            let date = this.convertDate(dateObj.dt_txt)
+            let date = this.convertDate(theDate.dt_txt)
             // console.log(`5. CONVERTED DATE AND TIME IS RETURNED: `, date)
             return date
         });
