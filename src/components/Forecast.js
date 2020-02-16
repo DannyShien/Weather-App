@@ -3,11 +3,9 @@ import './Forecast.css';
 
 const Forecast = ({dates, mains, mins, maxs, icons}) => {
     let timeInterval = dates.map((timestamp, i) => {
-        // let day = timestamp[0]
         let time = timestamp[1]
         return (
             <div className='timestamp' key={i}>
-                {/* {day} */}
                 {time}
             </div>
         )
@@ -17,7 +15,6 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
         let day = dayNow[0]
         return day
     })
-    console.log(weekday[0])
     let today = weekday[0]
 
     let icon = icons.map((iconArr, i) => {
@@ -38,25 +35,6 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
         )
     })
 
-    // let max = maxs.map((maxObj, i) => {
-    //     // let max = maxObj
-    //     return (
-    //         <div key={i}>
-    //             {/* {`${max} °`} */}
-    //             {max}
-    //         </div>
-    //     )
-    // })
-    // let min = mins.map((minObj, i) => {
-    //     let min = minObj
-    //     return (
-    //         <div key={i}>
-    //             {/* {`${min} °F`} */}
-    //             {min}
-    //         </div>
-    //     )
-    // }); 
-
     return (
         <div className='forecast-display'>
             <div className='day'>
@@ -71,12 +49,6 @@ const Forecast = ({dates, mains, mins, maxs, icons}) => {
             <div className='forecast'>
                 {main}
             </div>
-            {/* <div className='forecast'>
-                {min}
-            </div>
-            <div className='forecast'>
-                {max}
-            </div> */}
         </div>
     )
 }

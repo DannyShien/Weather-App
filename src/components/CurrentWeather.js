@@ -18,7 +18,6 @@ const CurrentWeather = ({city, secondaryCity, condition, temperature, icon, humi
             </div>
             <div className='right-display'>
                 <div>
-                    {/* {weatherIcon} */}
                     <img src={`https://openweathermap.org/img/w/${icon}.png`}  alt='weather icon' />
                 </div>
                 <div>
