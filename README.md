@@ -1,5 +1,5 @@
 # WEATHER-APP...UNDERCONSTRUCTION
-### Getting current weather based off of location!
+### Showcasing weather data based off of user's location!
 
 ## Summary
 
